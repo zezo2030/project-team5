@@ -393,7 +393,7 @@
  .nav-links a {
      text-decoration: none;
      padding: 20px 10px 20px 0px;
-     color: #333;
+     color: var(--text-primary);
  }
 
  .nav-list {
