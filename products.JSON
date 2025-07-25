@@ -1,0 +1,132 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "title": "Eighth Airlin Shirt",
+            "price": 18.64,
+            "image": "product-01.jpg.webp",
+            "category": "men",
+            "description": "Classic fit button-down shirt with subtle texture. 100% cotton."
+        },
+        {
+            "id": 2,
+            "title": "Hendrial Supply Backpack",
+            "price": 35.31,
+            "image": "product-02.jpg.webp",
+            "category": "accessories",
+            "description": "Minimalist leather backpack with adjustable straps and hidden compartments."
+        },
+        {
+            "id": 3,
+            "title": "Only Check Trouser",
+            "price": 25.90,
+            "image": "product-03.jpg.webp",
+            "category": "women",
+            "description": "High-waisted trousers with elegant checkered pattern and side pockets."
+        },
+        {
+            "id": 4,
+            "title": "Classic Trench Coat",
+            "price": 75.00,
+            "image": "product-04.jpg.webp",
+            "category": "women",
+            "description": "Timeless beige trench coat with water-resistant fabric and belted waist."
+        },
+        {
+            "id": 5,
+            "title": "Front-Pocket Jumper",
+            "price": 44.79,
+            "image": "product-05.jpg.webp",
+            "category": "men",
+            "description": "Knit sweater featuring a distinctive oversized front pocket."
+        },
+        {
+            "id": 6,
+            "title": "Vintage Imprinted Classic Jacket",
+            "price": 93.20,
+            "image": "product-06.jpg.webp",
+            "category": "men",
+            "description": "Retro-inspired leather moto jacket with quilted lining."
+        },
+        {
+            "id": 7,
+            "title": "Stretch Cotton Shirt",
+            "price": 52.66,
+            "image": "product-07.jpg.webp",
+            "category": "women",
+            "description": "Slim-fit shirt with 5% elastane for comfort and ease of movement."
+        },
+        {
+            "id": 8,
+            "title": "Roses Metallic Print Scarf",
+            "price": 18.69,
+            "image": "product-08.jpg.webp",
+            "category": "accessories",
+            "description": "Luxury silk scarf with shimmering rose gold floral motifs."
+        },
+        {
+            "id": 9,
+            "title": "Converse All Star Hi Plimsolls",
+            "price": 75.00,
+            "image": "product-09.jpg.webp",
+            "category": "unisex",
+            "description": "Iconic high-top canvas sneakers in classic white."
+        },
+        {
+            "id": 10,
+            "title": "Striped Crewneck T-Shirt",
+            "price": 28.85,
+            "image": "product-10.jpg.webp",
+            "category": "men",
+            "description": "Breathable cotton tee with nautical-inspired stripes."
+        },
+        {
+            "id": 11,
+            "title": "Hendrial Supply Messenger Bag",
+            "price": 63.16,
+            "image": "product-11.jpg.webp",
+            "category": "accessories",
+            "description": "Premium leather crossbody bag with RFID-protected pocket."
+        },
+        {
+            "id": 12,
+            "title": "Hendrial Supply Duffle",
+            "price": 63.15,
+            "image": "product-12.jpg.webp",
+            "category": "accessories",
+            "description": "Weekender duffle bag in full-grain leather with brass hardware."
+        },
+        {
+            "id": 13,
+            "title": "Vintage Boone T-Shirt",
+            "price": 18.49,
+            "image": "product-13.jpg.webp",
+            "category": "women",
+            "description": "Distressed graphic tee featuring retro typography."
+        },
+        {
+            "id": 14,
+            "title": "Pretty Little Thing Dress",
+            "price": 54.79,
+            "image": "product-14.jpg.webp",
+            "category": "women",
+            "description": "Bodycon midi dress with ruching and square neckline."
+        },
+        {
+            "id": 15,
+            "title": "Mini Silver Mesh Watch",
+            "price": 68.85,
+            "image": "product-15.jpg.webp",
+            "category": "accessories",
+            "description": "Stainless steel mesh band with minimalist rose gold dial."
+        },
+        {
+            "id": 16,
+            "title": "Square Neck Back Top",
+            "price": 29.64,
+            "image": "product-16.jpg.webp",
+            "category": "women",
+            "description": "Blouse with square neckline and crisscross back detailing."
+        }
+    ]
+}
