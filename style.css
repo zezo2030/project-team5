@@ -1157,7 +1157,7 @@
      bottom: -10px;
      border: 3px solid #ccc;
      border-radius: 1px;
-     z-index: 1;
+     /*z-index: 1;*/
  }
 
  .ourStory>.img>img {
@@ -1167,7 +1167,7 @@
      padding-bottom: 16px;
      /* border: 4px solid #cac9c9; */
      position: relative;
-     z-index: 2;
+     /*z-index: 2;*/
      display: block;
  }
 
@@ -1270,7 +1270,7 @@
      bottom: -10px;
      border: 3px solid #ccc;
      border-radius: 1px;
-     z-index: 1;
+     /*z-index: 1;*/
  }
 
  .ourMission>.img>img {
@@ -1281,6 +1281,6 @@
      padding-bottom: 16px;
      /* border: 4px solid #cac9c9; */
      position: relative;
-     z-index: 2;
+     /*z-index: 2;*/
      display: block;
  }
