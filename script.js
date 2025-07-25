@@ -208,8 +208,8 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
 
             var thumbnailImages = [
                 './assets/' + product.image,
-                './assets/product-detail-02.jpg.webp',
-                './assets/product-detail-03.jpg.webp'
+                './assets/product-detail-01.jpg.webp',
+                './assets/product-detail-02.jpg.webp'
             ];
 
             var popup = document.createElement('div');
