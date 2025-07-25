@@ -1,10 +1,13 @@
+
 var activeBtns = document.querySelectorAll('.products-categories-btn button');
 
 for (var i = 0; i < activeBtns.length; i++) {
     activeBtns[i].addEventListener('click', (e) => {
+
         for (var j = 0; j < activeBtns.length; j++) {
             activeBtns[j].classList.remove('products-active');
         }
+
         e.target.classList.add('products-active');
     });
 }
@@ -36,7 +39,7 @@ var firstInteraction = true;
 var sliderRight = document.getElementById("slider-right-btn");
 var sliderLeft = document.getElementById("slider-left-btn");
 
-sliderRight.addEventListener('click', () => {
+sliderRight.addEventListener('click', function () {
     if (firstInteraction) {
         firstInteraction = false;
         i = 1;
@@ -46,7 +49,7 @@ sliderRight.addEventListener('click', () => {
     }
 });
 
-sliderLeft.addEventListener('click', () => {
+sliderLeft.addEventListener('click', function () {
     if (firstInteraction) {
         firstInteraction = false;
         i = slides.length - 1;
@@ -87,6 +90,7 @@ function updateSlide() {
         btn.classList.add('animated', 'rotate-in-place', 'delay-3');
     }
 }
+
 function next() {
     i++;
     if (i >= slides.length) {
@@ -104,7 +108,7 @@ function prev() {
 }
 
 function autoShow() {
-    setInterval(() => {
+    setInterval(function () {
         next();
     }, 3000);
 }
@@ -112,10 +116,13 @@ function autoShow() {
 updateSlide();
 autoShow();
 
+
 var backToTopBtn = document.querySelector('.back-to-top');
+
+
 backToTopBtn.classList.add('hidden');
 
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', function () {
     if (window.scrollY > 300) {
         backToTopBtn.classList.remove('hidden');
     } else {
@@ -123,25 +130,29 @@ window.addEventListener('scroll', () => {
     }
 });
 
-backToTopBtn.addEventListener('click', () => {
+
+backToTopBtn.addEventListener('click', function () {
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
 });
 
+var productReq = new XMLHttpRequest()
 window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    const body = document.body;
+    const navbar = document.querySelector('.navbar')
+    const body = document.body
 
     if (window.scrollY >= 40) {
         navbar.classList.add('scrolled');
         body.classList.add('scrolled');
-    } else {
+    }
+    else {
         navbar.classList.remove('scrolled');
         body.classList.remove('scrolled');
     }
-});
+})
+
 
 var allProducts = [];
 
@@ -158,6 +169,7 @@ productReq.onreadystatechange = () => {
 };
 
 var buttons = document.querySelectorAll('.products-categories-btn button');
+
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', (e) => {
         var category = e.target.id.toLowerCase();
@@ -177,18 +189,18 @@ var showProducts = (category) => {
                 <div class="product-card">
                     <div class="product-img">
                         <img src="./assets/${allProducts[i].image}" alt="">
-                        <button data-product-id="${allProducts[i].id}" class="quick-view">Quick View</button>
+                        <a href="#" id="${allProducts[i].id}">Quick View</a>
                     </div>
                     <div class="product-details">
                         <div class="product-name">
-                            <span>${allProducts[i].title}</span>
-                            <div class="icon-heart-container">
-                                <a>
-                                    <img class="icon-heart-1" src="./assets/icon-heart-01.png.webp" alt="">
-                                    <img class="icon-heart-2" src="./assets/icon-heart-02.png.webp" alt="">
-                                </a>
+                                <span>${allProducts[i].title}</span>
+                                <div class="icon-heart-container">
+                                    <a>
+                                        <img class="icon-heart-1" src="./assets/icon-heart-01.png.webp" alt="">
+                                        <img class="icon-heart-2" src="./assets/icon-heart-02.png.webp" alt="">
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         <div class="product-price">$${allProducts[i].price}</div>
                     </div>
                 </div>
@@ -196,125 +208,3 @@ var showProducts = (category) => {
         }
     }
 };
-
-document.querySelector('.products-list').addEventListener('click', (e) => {
-    if (e.target.classList.contains('quick-view')) {
-        var productId = e.target.getAttribute('data-product-id');
-        var product = allProducts.find(p => p.id == productId);
-        if (product) {
-            const sizes = ['XS', 'S', 'M', 'L', 'XL'];
-            const colors = ['Red', 'Blue', 'Black', 'White', 'Green'];
-
-            var popup = document.createElement('div');
-            popup.className = 'popup';
-            popup.innerHTML = `
-                <button class="close-btn">×</button>
-                <div class="popup-content">
-                    <div class="popup-images">
-                        <img src="./assets/${product.image}" alt="${product.title}" class="popup-main-image">
-                    </div>
-                    <div class="popup-details">
-                        <h2>${product.title}</h2>
-                        <p class="price">$${product.price}</p>
-                        <p class="description">${product.description || 'No description available.'}</p>
-                        
-                        <div class="options-container">
-                            <div class="option-group">
-                                <label for="size-select">Size</label>
-                                <select id="size-select" class="option-select">
-                                    <option value="">Select Size</option>
-                                    ${sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
-                                </select>
-                            </div>
-                            
-                            <div class="option-group">
-                                <label for="color-select">Color</label>
-                                <select id="color-select" class="option-select">
-                                    <option value="">Select Color</option>
-                                    ${colors.map(color => `<option value="${color}">${color}</option>`).join('')}
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="add-to-cart-container">
-                            <div class="quantity-selector">
-                                <button class="quantity-btn minus">-</button>
-                                <span class="quantity-display">0</span>
-                                <button class="quantity-btn plus">+</button>
-                            </div>
-                            <button class="add-to-cart-btn">ADD TO CART</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            var overlay = document.createElement('div');
-            overlay.className = 'overlay';
-
-            document.body.appendChild(overlay);
-            document.body.appendChild(popup);
-
-            popup.querySelector('.close-btn').addEventListener('click', () => {
-                popup.remove();
-                overlay.remove();
-            });
-
-            overlay.addEventListener('click', () => {
-                popup.remove();
-                overlay.remove();
-            });
-
-            const minusBtn = popup.querySelector('.quantity-btn.minus');
-            const plusBtn = popup.querySelector('.quantity-btn.plus');
-            const quantityDisplay = popup.querySelector('.quantity-display');
-
-            let quantity = 0;
-
-            minusBtn.addEventListener('click', () => {
-                if (quantity > 0) {
-                    quantity--;
-                    quantityDisplay.textContent = quantity;
-                }
-            });
-
-            plusBtn.addEventListener('click', () => {
-                quantity++;
-                quantityDisplay.textContent = quantity;
-            });
-
-            popup.querySelector('.add-to-cart-btn').addEventListener('click', () => {
-                const selectedSize = popup.querySelector('#size-select').value;
-                const selectedColor = popup.querySelector('#color-select').value;
-
-                if (!selectedSize) {
-                    alert('Please select a size');
-                    return;
-                }
-
-                if (!selectedColor) {
-                    alert('Please select a color');
-                    return;
-                }
-
-                if (quantity === 0) {
-                    alert('Please select quantity');
-                    return;
-                }
-
-                console.log('Added to cart:', {
-                    product: product.title,
-                    size: selectedSize,
-                    color: selectedColor,
-                    quantity: quantity,
-                    price: product.price
-                });
-
-                popup.remove();
-                overlay.remove();
-            });
-
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
-        }
-    }
-});
