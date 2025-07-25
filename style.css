@@ -57,14 +57,14 @@
      --bg-button-hover: #007bff;
 
      /* Dark Mode Text Colors */
-     --text-primary: #e4e4e4;
+     --text-primary: #aaa9a9;
      --text-secondary: #b8b8b8;
      --text-muted: #adaaaa;
      --text-light: #c8c3c3;
      --text-dark: #f0f0f0;
      --text-white: #5b5656;
      --text-brand: #4da6ff;
-     --text-accent: #6b6eff;
+     --text-accent: #8889;
      --text-special: #ff6b9d;
 
      /* Dark Mode Border Colors */
@@ -1006,6 +1006,7 @@
      font-family: 'Poppins', sans-serif;
      font-size: 24px;
      font-weight: 300;
+     color: var(--text-primary);
  }
 
  .d1 {
@@ -1049,7 +1050,7 @@
  .contact_text h4 {
      font-size: 18px;
      font-weight: 100px;
-     color: #333;
+     color: var(--text-primary);
      margin: 0 0 5px;
 
  }
@@ -1085,13 +1086,13 @@
  .contact_text a {
      margin-top: 5px;
      font-size: 13px;
-     color: #4a4de7;
+     color: var(--text-accent);
      text-decoration: none;
 
  }
  .info_item a {
 
-     color: #4a4de7;
+     color: var(--text-accent);
      text-decoration: none;
  }
 
