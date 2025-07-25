@@ -9,7 +9,7 @@ for (var i = 0; i < activeBtns.length; i++) {
         }
 
         e.target.classList.add('products-active');
-    });
+    });
 }
 
 var slides = [
@@ -34,14 +34,29 @@ var slides = [
 ];
 
 var i = 0;
+var firstInteraction = true;
+
 var sliderRight = document.getElementById("slider-right-btn");
 var sliderLeft = document.getElementById("slider-left-btn");
 
 sliderRight.addEventListener('click', function () {
-    next();
+    if (firstInteraction) {
+        firstInteraction = false;
+        i = 1;
+        updateSlide();
+    } else {
+        next();
+    }
 });
+
 sliderLeft.addEventListener('click', function () {
-    prev();
+    if (firstInteraction) {
+        firstInteraction = false;
+        i = slides.length - 1;
+        updateSlide();
+    } else {
+        prev();
+    }
 });
 
 function updateSlide() {
@@ -76,7 +91,6 @@ function updateSlide() {
     }
 }
 
-
 function next() {
     i++;
     if (i >= slides.length) {
@@ -93,8 +107,14 @@ function prev() {
     updateSlide();
 }
 
+function autoShow() {
+    setInterval(function () {
+        next();
+    }, 3000);
+}
 
 updateSlide();
+autoShow();
 
 
 var backToTopBtn = document.querySelector('.back-to-top');
@@ -173,12 +193,18 @@ var showProducts = (category) => {
                     </div>
                     <div class="product-details">
                         <div class="product-name">
-                            <span>${allProducts[i].title}</span>
-                        </div>
+                                <span>${allProducts[i].title}</span>
+                                <div class="icon-heart-container">
+                                    <a>
+                                        <img class="icon-heart-1" src="./assets/icon-heart-01.png.webp" alt="">
+                                        <img class="icon-heart-2" src="./assets/icon-heart-02.png.webp" alt="">
+                                    </a>
+                                </div>
+                            </div>
                         <div class="product-price">$${allProducts[i].price}</div>
                     </div>
                 </div>
             `;
-        }
-    }
+        }
+    }
 };
