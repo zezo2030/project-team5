@@ -33,6 +33,15 @@
      --shadow-light: rgba(0, 0, 0, 0.1);
      --shadow-medium: rgba(0, 0, 0, 0.2);
      --shadow-navbar: rgba(0, 0, 0, 0.2);
+
+     /* navbar icons color */
+     --navbar-icons-color: rgb(51, 51, 51);
+
+     /* products categories-btn  */
+     --products-bg-btn:white;
+     --products-bg-btn-hover: #333;
+     --products-color: #222;
+     --products-bg-btn-load-more: rgb(230, 230, 230);
  }
 
 
@@ -50,7 +59,7 @@
      /* Dark Mode Text Colors */
      --text-primary: #e4e4e4;
      --text-secondary: #b8b8b8;
-     --text-muted: #9a9a9a;
+     --text-muted: #adaaaa;
      --text-light: #c8c3c3;
      --text-dark: #f0f0f0;
      --text-white: #5b5656;
@@ -67,6 +76,15 @@
      --shadow-light: rgba(0, 0, 0, 0.3);
      --shadow-medium: rgba(0, 0, 0, 0.5);
      --shadow-navbar: rgba(0, 0, 0, 0.7);
+
+     /* navbar icons color */
+     --navbar-icons-color: rgb(178 172 172);
+
+      /* products categories-btn  */
+     --products-bg-btn: transparent;
+     --products-bg-btn-hover: rgb(235, 235, 235);
+     --products-color: #9a9a9a;
+     --products-bg-btn-load-more: #c1c1c1;
  }
 
 
@@ -309,6 +327,10 @@
      top: 0px;
  }
 
+ .navbar.scrolled a {
+     color: var(--navbar-icons-color);
+ }
+
  .navbar-container {
      height: 100%;
      width: 80%;
@@ -328,7 +350,8 @@
      padding: 0px 11px 0px 22px;
      background-color: rgba(0, 0, 0, 0);
      border: none;
-     color: rgb(51, 51, 51);
+     /* here */
+     color: var(--navbar-icons-color);
      font-size: 26px;
      transition: 0.4s ease;
  }
@@ -583,15 +606,15 @@
  .products-categories-btn button {
      margin: 5px 0px;
      border: none;
-     background-color: white;
+     background-color: var(--products-bg-btn);
      border-bottom: 1px solid transparent;
-     color: #888;
+     color: var(--text-muted);
      line-height: 1.2;
      font-size: 15px;
  }
 
  .products-categories-btn button:hover {
-     color: #333;
+     color: var(--products-bg-btn-hover);
      border-color: #797979;
  }
 
@@ -636,7 +659,7 @@
  .products-overview {
      font-weight: 700;
      font-size: 36px;
-     color: #222;
+     color: var(--products-color);
      line-height: 1.1;
      text-transform: uppercase;
  }
@@ -706,7 +729,7 @@
  }
 
  .load-more-btn {
-     background-color: rgb(230, 230, 230);
+     background-color: var(--products-bg-btn-load-more);
      height: 46px;
      width: 179px;
      color: rgb(34, 34, 34);
@@ -879,7 +902,7 @@
      padding: 0px 15px;
      cursor: pointer;
      transition: all 0.3s ease;
-     background-color: white;
+     background-color: var(--products-bg-btn-load-more);
      border-radius: 20px;
  }
 
