@@ -38,12 +38,12 @@
 
  /* ==================== DARK MODE VARIABLES ==================== */
  body.dark-mode {
-     --bg-primary: #121212;
+     --bg-primary: #121212c9;
      --bg-secondary: #1e1e1e;
      --bg-card: #2d2d2d;
      --bg-overlay: rgba(18, 18, 18, 0.95);
      --bg-navbar: rgba(18, 18, 18, 0.95);
-     --bg-top-bar: #000000;
+     --bg-top-bar: #12121261;
      --bg-button: rgb(113, 127, 224);
      --bg-button-hover: #007bff;
 
@@ -51,9 +51,9 @@
      --text-primary: #e4e4e4;
      --text-secondary: #b8b8b8;
      --text-muted: #9a9a9a;
-     --text-light: #6b6b6b;
+     --text-light: #c8c3c3;
      --text-dark: #f0f0f0;
-     --text-white: #ffffff;
+     --text-white: #5b5656;
      --text-brand: #4da6ff;
      --text-accent: #6b6eff;
      --text-special: #ff6b9d;
@@ -89,9 +89,10 @@
  body {
      font-family: 'Poppins', sans-serif;
      font-size: 15px;
-     color: #666;
+     color: var(--text-secondary);
      overflow-x: hidden;
      line-height: 1.8;
+     background-color: var(--bg-primary);
  }
 
  @keyframes fadeDown {
@@ -248,7 +249,7 @@
 
  .top-bar {
      height: 40px;
-     background-color: #222;
+     background-color: var(--bg-top-bar);
  }
 
  .top-bar-content-container {
@@ -262,14 +263,14 @@
  }
 
  .top-bar-left {
-     color: #b2b2b2;
+     color: var(--text-light);
      font-size: 12px;
  }
 
  .top-bar-links {
      display: flex;
      align-items: center;
-     color: #b2b2b2;
+     color: var(--text-light);
      height: 100%;
  }
 
@@ -300,7 +301,7 @@
  }
 
  .navbar.scrolled {
-     background-color: white;
+     background-color: var(--text-white);
      height: 70px;
      box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 3px 0px;
      z-index: 1;
