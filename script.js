@@ -198,13 +198,11 @@ var showProducts = (category) => {
     }
 };
 
-// ✅ FIXED: this must be placed AFTER all DOM + event setup
 document.querySelector('.products-list').addEventListener('click', (e) => {
     if (e.target.classList.contains('quick-view')) {
         var productId = e.target.getAttribute('data-product-id');
         var product = allProducts.find(p => p.id == productId);
         if (product) {
-            // Sample sizes and colors - replace with your actual data
             const sizes = ['XS', 'S', 'M', 'L', 'XL'];
             const colors = ['Red', 'Blue', 'Black', 'White', 'Green'];
 
@@ -257,7 +255,6 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
             document.body.appendChild(overlay);
             document.body.appendChild(popup);
 
-            // Close functionality
             popup.querySelector('.close-btn').addEventListener('click', () => {
                 popup.remove();
                 overlay.remove();
@@ -268,7 +265,6 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                 overlay.remove();
             });
 
-            // Quantity selector functionality
             const minusBtn = popup.querySelector('.quantity-btn.minus');
             const plusBtn = popup.querySelector('.quantity-btn.plus');
             const quantityDisplay = popup.querySelector('.quantity-display');
@@ -287,7 +283,6 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                 quantityDisplay.textContent = quantity;
             });
 
-            // Add to cart functionality
             popup.querySelector('.add-to-cart-btn').addEventListener('click', () => {
                 const selectedSize = popup.querySelector('#size-select').value;
                 const selectedColor = popup.querySelector('#color-select').value;
@@ -307,7 +302,6 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                     return;
                 }
 
-                // Here you would normally add to cart
                 console.log('Added to cart:', {
                     product: product.title,
                     size: selectedSize,
@@ -316,7 +310,6 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                     price: product.price
                 });
 
-                // Close popup after adding
                 popup.remove();
                 overlay.remove();
             });
