@@ -87,7 +87,6 @@ function updateSlide() {
         btn.classList.add('animated', 'rotate-in-place', 'delay-3');
     }
 }
-
 function next() {
     i++;
     if (i >= slides.length) {
