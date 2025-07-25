@@ -1139,3 +1139,61 @@ body {
 .close-btn:hover {
     background-color: rgba(0, 0, 0, 0.05);
 }
+
+.popup-images {
+    flex: 1;
+    min-width: 300px;
+
+    display: flex;
+    align-items: flex-start;
+
+}
+
+.popup-main-image {
+    width: 300px;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.thumbnail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-right: 20px;
+}
+
+.thumbnail-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.main-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.thumbnail-img:hover,
+.thumbnail-img.active {
+    border-color: #333;
+
+}
+
+.thumbnail-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.image-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}

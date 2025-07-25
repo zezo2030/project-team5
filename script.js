@@ -202,16 +202,33 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
         var productId = e.target.getAttribute('data-product-id');
         var product = allProducts.find(p => p.id == productId);
         if (product) {
-            const sizes = ['XS', 'S', 'M', 'L', 'XL'];
-            const colors = ['Red', 'Blue', 'Black', 'White', 'Green'];
+
+            var sizes = ['XS', 'S', 'M', 'L', 'XL'];
+            var colors = ['Red', 'Blue', 'Black', 'White', 'Green'];
+
+            var thumbnailImages = [
+                './assets/' + product.image,
+                './assets/product-detail-02.jpg.webp',
+                './assets/product-detail-03.jpg.webp'
+            ];
 
             var popup = document.createElement('div');
             popup.className = 'popup';
             popup.innerHTML = `
                 <button class="close-btn">×</button>
                 <div class="popup-content">
-                    <div class="popup-images">
-                        <img src="./assets/${product.image}" alt="${product.title}" class="popup-main-image">
+                    <div class="image-container">
+                        <div class="thumbnail-column">
+                            ${thumbnailImages.map((img, index) => `
+                                <img src="${img}" 
+                                     alt="Thumbnail ${index + 1}" 
+                                     class="thumbnail-img ${index === 0 ? 'active' : ''}"
+                                     data-main-img="${img}">
+                            `).join('')}
+                        </div>
+                        <div class="main-image-container">
+                            <img src="${thumbnailImages[0]}" alt="${product.title}" class="popup-main-image">
+                        </div>
                     </div>
                     <div class="popup-details">
                         <h2>${product.title}</h2>
@@ -220,7 +237,7 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                         
                         <div class="options-container">
                             <div class="option-group">
-                                <label for="size-select">Size</label>
+                                <label>Size</label>
                                 <select id="size-select" class="option-select">
                                     <option value="">Select Size</option>
                                     ${sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
@@ -228,7 +245,7 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                             </div>
                             
                             <div class="option-group">
-                                <label for="color-select">Color</label>
+                                <label>Color</label>
                                 <select id="color-select" class="option-select">
                                     <option value="">Select Color</option>
                                     ${colors.map(color => `<option value="${color}">${color}</option>`).join('')}
@@ -239,7 +256,7 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                         <div class="add-to-cart-container">
                             <div class="quantity-selector">
                                 <button class="quantity-btn minus">-</button>
-                                <span class="quantity-display">0</span>
+                                <span class="quantity-display">1</span>
                                 <button class="quantity-btn plus">+</button>
                             </div>
                             <button class="add-to-cart-btn">ADD TO CART</button>
@@ -254,6 +271,22 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
             document.body.appendChild(overlay);
             document.body.appendChild(popup);
 
+
+            var thumbnailElements = popup.querySelectorAll('.thumbnail-img');
+            var mainImage = popup.querySelector('.popup-main-image');
+
+            thumbnailElements.forEach(thumb => {
+                thumb.addEventListener('click', () => {
+
+                    mainImage.src = thumb.dataset.mainImg;
+
+
+                    thumbnailElements.forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                });
+            });
+
+
             popup.querySelector('.close-btn').addEventListener('click', () => {
                 popup.remove();
                 overlay.remove();
@@ -264,14 +297,15 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                 overlay.remove();
             });
 
-            const minusBtn = popup.querySelector('.quantity-btn.minus');
-            const plusBtn = popup.querySelector('.quantity-btn.plus');
-            const quantityDisplay = popup.querySelector('.quantity-display');
 
-            let quantity = 0;
+            var minusBtn = popup.querySelector('.quantity-btn.minus');
+            var plusBtn = popup.querySelector('.quantity-btn.plus');
+            var quantityDisplay = popup.querySelector('.quantity-display');
+
+            var quantity = 1;
 
             minusBtn.addEventListener('click', () => {
-                if (quantity > 0) {
+                if (quantity > 1) { // Minimum 1 item
                     quantity--;
                     quantityDisplay.textContent = quantity;
                 }
@@ -282,9 +316,10 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                 quantityDisplay.textContent = quantity;
             });
 
+
             popup.querySelector('.add-to-cart-btn').addEventListener('click', () => {
-                const selectedSize = popup.querySelector('#size-select').value;
-                const selectedColor = popup.querySelector('#color-select').value;
+                var selectedSize = popup.querySelector('#size-select').value;
+                var selectedColor = popup.querySelector('#color-select').value;
 
                 if (!selectedSize) {
                     alert('Please select a size');
@@ -296,18 +331,15 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                     return;
                 }
 
-                if (quantity === 0) {
-                    alert('Please select quantity');
-                    return;
-                }
-
                 console.log('Added to cart:', {
                     product: product.title,
                     size: selectedSize,
                     color: selectedColor,
                     quantity: quantity,
-                    price: product.price
+                    price: product.price,
+                    image: mainImage.src
                 });
+
 
                 popup.remove();
                 overlay.remove();
