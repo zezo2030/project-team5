@@ -1,6 +1,76 @@
  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700,900');
  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+
+ :root {
+     /* Light Mode Colors */
+     --bg-primary: #ffffff;
+     --bg-secondary: #f8f9fa;
+     --bg-card: #ffffff;
+     --bg-overlay: rgba(255, 255, 255, 0.95);
+     --bg-navbar: rgba(255, 255, 255, 0.95);
+     --bg-top-bar: #222222;
+     --bg-button: rgb(113, 127, 224);
+     --bg-button-hover: #007bff;
+
+     /* Text Colors */
+     --text-primary: #333333;
+     --text-secondary: #666666;
+     --text-muted: #888888;
+     --text-light: #b2b2b2;
+     --text-dark: #1a1a1a;
+     --text-white: #ffffff;
+     --text-brand: #007bff;
+     --text-accent: #4a4de7;
+     --text-special: #f74877;
+
+     /* Border Colors */
+     --border-light: #e6e6e6;
+     --border-medium: #cccccc;
+     --border-navbar: rgba(255, 255, 255, 0.3);
+
+     /* Shadow Colors */
+     --shadow-light: rgba(0, 0, 0, 0.1);
+     --shadow-medium: rgba(0, 0, 0, 0.2);
+     --shadow-navbar: rgba(0, 0, 0, 0.2);
+ }
+
+
+ /* ==================== DARK MODE VARIABLES ==================== */
+ body.dark-mode {
+     --bg-primary: #121212;
+     --bg-secondary: #1e1e1e;
+     --bg-card: #2d2d2d;
+     --bg-overlay: rgba(18, 18, 18, 0.95);
+     --bg-navbar: rgba(18, 18, 18, 0.95);
+     --bg-top-bar: #000000;
+     --bg-button: rgb(113, 127, 224);
+     --bg-button-hover: #007bff;
+
+     /* Dark Mode Text Colors */
+     --text-primary: #e4e4e4;
+     --text-secondary: #b8b8b8;
+     --text-muted: #9a9a9a;
+     --text-light: #6b6b6b;
+     --text-dark: #f0f0f0;
+     --text-white: #ffffff;
+     --text-brand: #4da6ff;
+     --text-accent: #6b6eff;
+     --text-special: #ff6b9d;
+
+     /* Dark Mode Border Colors */
+     --border-light: #404040;
+     --border-medium: #555555;
+     --border-navbar: rgba(255, 255, 255, 0.1);
+
+     /* Dark Mode Shadow Colors */
+     --shadow-light: rgba(0, 0, 0, 0.3);
+     --shadow-medium: rgba(0, 0, 0, 0.5);
+     --shadow-navbar: rgba(0, 0, 0, 0.7);
+ }
+
+
+
  * {
      margin: 0;
      padding: 0;
