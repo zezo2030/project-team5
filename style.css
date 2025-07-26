@@ -66,6 +66,10 @@
      --input-bg-color:white;
      --button-box-color:#6570c1;
      --error-color:red;
+
+     /* popup */
+     --popup-bg-color: var(--bg-primary);
+     --popup-cart-text:var(--text-white);
  }
 
 
@@ -133,6 +137,10 @@
      --input-bg-color:#d2d0d0;
      --button-box-color:#2a2929ad;
      --error-color:#ff4949;
+
+     /* popup */
+     --popup-bg-color: #151515e0;
+     --popup-cart-text: #d5cbcb;
  }
 
 
@@ -1559,7 +1567,7 @@
  }
 
  .quantity-btn:hover {
-     background: var(--bg-button-hover);
+     background: var(--bg-button);
      transform: scale(1.1);
  }
 
@@ -1818,7 +1826,7 @@
  .totals-title {
      font-size: 18px;
      font-weight: 700;
-     color: #333;
+     color: var(--icons-colors);
      margin-bottom: 25px;
      text-align: left;
      letter-spacing: 1px;
@@ -1834,12 +1842,12 @@
 
  .totals-row .label {
      font-weight: 500;
-     color: #333;
+     color: var(--icons-colors);
  }
 
  .totals-row .value {
      font-weight: 500;
-     color: #333;
+     color: var(--icons-colors);
      font-size: 16px;
  }
 
@@ -1857,7 +1865,7 @@
 
  .shipping-header .label {
      font-weight: 600;
-     color: #333;
+     color: var(--icons-colors);
      min-width: 70px;
  }
 
@@ -1896,7 +1904,7 @@
      border: 1px solid #ddd;
      border-radius: 3px;
      font-size: 13px;
-     background: white;
+     background: var(--input-bg-color);
      margin-bottom: 9px;
 
  }
@@ -2146,7 +2154,7 @@
      top: 50%;
      left: 50%;
      transform: translate(-50%, -50%);
-     background-color: var(--bg-primary);
+     background-color: var(--popup-bg-color);
      padding: 40px;
      box-shadow: 0 0 10px var(--shadow-medium);
      z-index: 1000;
@@ -2250,6 +2258,7 @@
      display: flex;
      align-items: center;
      justify-content: center;
+     color: var(--popup-cart-text);
  }
 
  .quantity-display {
@@ -2261,7 +2270,7 @@
      flex-grow: 0;
      width: 200px;
      background-color: var(--bg-button);
-     color: var(--text-white);
+     color: var(--popup-cart-text);
      border: none;
      padding: 15px;
      font-size: 17px;
