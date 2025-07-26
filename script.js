@@ -208,3 +208,159 @@ var showProducts = (category) => {
         }
     }
 };
+
+
+
+document.querySelector('.products-list').addEventListener('click', (e) => {
+    if (e.target.classList.contains('quick-view')) {
+        var productId = e.target.getAttribute('data-product-id');
+        var product = allProducts.find(p => p.id == productId);
+        if (product) {
+
+            var sizes = ['XS', 'S', 'M', 'L', 'XL'];
+            var colors = ['Red', 'Blue', 'Black', 'White', 'Green'];
+
+            var thumbnailImages = [
+                './assets/' + product.image,
+                './assets/product-detail-01.jpg.webp',
+                './assets/product-detail-02.jpg.webp'
+            ];
+
+            var popup = document.createElement('div');
+            popup.className = 'popup';
+            popup.innerHTML = `
+                <button class="close-btn">×</button>
+                <div class="popup-content">
+                    <div class="image-container">
+                        <div class="thumbnail-column">
+                            ${thumbnailImages.map((img, index) => `
+                                <img src="${img}" 
+                                     alt="Thumbnail ${index + 1}" 
+                                     class="thumbnail-img ${index === 0 ? 'active' : ''}"
+                                     data-main-img="${img}">
+                            `).join('')}
+                        </div>
+                        <div class="main-image-container">
+                            <img src="${thumbnailImages[0]}" alt="${product.title}" class="popup-main-image">
+                        </div>
+                    </div>
+                    <div class="popup-details">
+                        <h2>${product.title}</h2>
+                        <p class="price">$${product.price}</p>
+                        <p class="description">${product.description || 'No description available.'}</p>
+                        
+                        <div class="options-container">
+                            <div class="option-group">
+                                <label>Size</label>
+                                <select id="size-select" class="option-select">
+                                    <option value="">Select Size</option>
+                                    ${sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                                </select>
+                            </div>
+                            
+                            <div class="option-group">
+                                <label>Color</label>
+                                <select id="color-select" class="option-select">
+                                    <option value="">Select Color</option>
+                                    ${colors.map(color => `<option value="${color}">${color}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="add-to-cart-container">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus">-</button>
+                                <span class="quantity-display">1</span>
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                            <button class="add-to-cart-btn">ADD TO CART</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            var overlay = document.createElement('div');
+            overlay.className = 'overlay';
+
+            document.body.appendChild(overlay);
+            document.body.appendChild(popup);
+
+
+            var thumbnailElements = popup.querySelectorAll('.thumbnail-img');
+            var mainImage = popup.querySelector('.popup-main-image');
+
+            thumbnailElements.forEach(thumb => {
+                thumb.addEventListener('click', () => {
+
+                    mainImage.src = thumb.dataset.mainImg;
+
+
+                    thumbnailElements.forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                });
+            });
+
+
+            popup.querySelector('.close-btn').addEventListener('click', () => {
+                popup.remove();
+                overlay.remove();
+            });
+
+            overlay.addEventListener('click', () => {
+                popup.remove();
+                overlay.remove();
+            });
+
+
+            var minusBtn = popup.querySelector('.quantity-btn.minus');
+            var plusBtn = popup.querySelector('.quantity-btn.plus');
+            var quantityDisplay = popup.querySelector('.quantity-display');
+
+            var quantity = 1;
+
+            minusBtn.addEventListener('click', () => {
+                if (quantity > 1) { // Minimum 1 item
+                    quantity--;
+                    quantityDisplay.textContent = quantity;
+                }
+            });
+
+            plusBtn.addEventListener('click', () => {
+                quantity++;
+                quantityDisplay.textContent = quantity;
+            });
+
+
+            popup.querySelector('.add-to-cart-btn').addEventListener('click', () => {
+                var selectedSize = popup.querySelector('#size-select').value;
+                var selectedColor = popup.querySelector('#color-select').value;
+
+                if (!selectedSize) {
+                    alert('Please select a size');
+                    return;
+                }
+
+                if (!selectedColor) {
+                    alert('Please select a color');
+                    return;
+                }
+
+                console.log('Added to cart:', {
+                    product: product.title,
+                    size: selectedSize,
+                    color: selectedColor,
+                    quantity: quantity,
+                    price: product.price,
+                    image: mainImage.src
+                });
+
+
+                popup.remove();
+                overlay.remove();
+            });
+
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+    }
+});
