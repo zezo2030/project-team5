@@ -545,7 +545,7 @@
      border: 1px solid #e6e6e6;
      position: relative;
      min-height: 300px;
-     background-size: contain;
+     background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
  }
@@ -679,6 +679,9 @@
      flex-direction: column;
      justify-content: start;
      align-items: flex-start;
+     border-radius: 10px;
+     box-shadow: #505050 2px 3px 10px;
+
  }
 
  .product-card div {
@@ -699,6 +702,7 @@
 
  .product-details {
      width: 100%;
+     padding: 0 10px 10px 10px;
 
  }
 
@@ -886,6 +890,8 @@
 
  .product-img {
      position: relative;
+     border-top-right-radius: 10px;
+     border-top-left-radius: 10px;
  }
 
  .product-img button {
