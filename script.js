@@ -363,6 +363,7 @@ searchBtn.addEventListener('click', () => {
         searchInput.addEventListener("keydown", (e) => {
             if (e.key === 'Enter') {
                 searchProduct();
+                searchInput.value = ""
             }
         })
     }
