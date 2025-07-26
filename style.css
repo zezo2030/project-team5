@@ -45,6 +45,9 @@
 
      /* features colors */
      --cart-table-text-color: #555;
+
+     /* input colors */
+     --inputs-color-bg: white;
  }
 
 
@@ -91,6 +94,9 @@
 
      /* features colors */
      --cart-table-text-color: #aaa9a9;
+
+     /* input colors */
+     --inputs-color-bg: #c6c6c6;
  }
 
 
@@ -1033,6 +1039,7 @@
  .d1>input {
      padding: 10px;
      width: 100%;
+     background-color: var(--inputs-color-bg)
  }
 
  textarea {
@@ -1044,11 +1051,13 @@
      border-radius: 3px;
      resize: vertical;
      min-height: 120px;
+     background-color: var(--inputs-color-bg)
  }
+
 
  .submit_btn {
      width: 100%;
-     background-color: #222;
+     background-color: var(--bg-top-bar);
      color: #fff;
      padding: 14px;
      border: none;
