@@ -619,7 +619,7 @@
  }
 
  .products-categories-btn .products-active {
-     color: #333;
+     color: var(--products-bg-btn-hover);
      border-color: #797979;
  }
 
