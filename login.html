@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login__body">
+  <div class="login-box">
+    <h2>Login</h2>
+    <p>Enter login details to get access</p>
+    <form id="loginForm" novalidate>
+      <input type="email" id="loginEmail" placeholder="Email address" required>
+      <div class="error-message" id="loginEmail-error"></div>
+
+      <input type="password" id="loginPassword" placeholder="Enter Password" required>
+      <div class="error-message" id="loginPassword-error"></div>
+
+      <button type="submit">Login</button>
+    </form>
+    <div class="signup">
+      Don't have an account? <a href="../sign-up.html">Sign Up here</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      var errorMessages = document.querySelectorAll('.error-message');
+      for (let i = 0; i < errorMessages.length; i++) {
+        errorMessages[i].style.display = 'none';
+      }
+
+      var inputs = document.querySelectorAll('input');
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].classList.remove('error');
+      }
+
+      var email = document.getElementById("loginEmail");
+      var password = document.getElementById("loginPassword");
+
+      let isValid = true;
+
+      
+      var  emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim()) || !email.value.includes(".com")) {
+        showError(email, "Please enter a valid email address that includes '@' and '.com'");
+        isValid = false;
+      }
+
+      
+      var passwordRegex = /^(?=.*\d).{6,}$/;
+      if (!passwordRegex.test(password.value)) {
+        showError(password, "Password must be at least 6 characters and include at least one number.");
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      
+      const storedEmail = localStorage.getItem("userEmail");
+      const storedPassword = localStorage.getItem("userPassword");
+
+      if (email.value.trim() === storedEmail && password.value === storedPassword) {
+        
+        window.location.href = "./landing-page.html";
+      } else {
+        showError(password, "Incorrect email or password.");
+      }
+    });
+
+    function showError(input, message) {
+      input.classList.add('error');
+      var errorDiv = document.getElementById(input.id + "-error");
+      errorDiv.innerText = message;
+      errorDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

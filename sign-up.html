@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login__body">
+  <div class="signup-box">
+    <h2>Sign Up</h2>
+    <p>Create your account to get full access</p>
+    <form id="registerForm" novalidate>
+      <input type="text" id="username" placeholder="Enter username" required>
+      <div class="error-message" id="username-error"></div>
+
+      <input type="email" id="email" placeholder="Enter email address" required>
+      <div class="error-message" id="email-error"></div>
+
+      <input type="password" id="password" placeholder="Enter Password" required>
+      <div class="error-message" id="password-error"></div>
+
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="login">
+      Already have an account? <a href="./looggin.html">Login here</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      var errorMessages = document.querySelectorAll('.error-message');
+      for (let i = 0; i < errorMessages.length; i++) {
+        errorMessages[i].style.display = 'none';
+      }
+
+      var inputs = document.querySelectorAll('input');
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].classList.remove('error');
+      }
+
+      var username = document.getElementById("username");
+      var email = document.getElementById("email");
+      var password = document.getElementById("password");
+
+      let isValid = true;
+
+      if (username.value.trim() === "") {
+        showError(username, "Username is required");
+        isValid = false;
+      }
+
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim()) || !email.value.includes(".com")) {
+        showError(email, "Please enter a valid email address containing '@' and '.com'");
+        isValid = false;
+      }
+
+      var passwordRegex = /^(?=.*\d).{6,}$/;
+      if (!passwordRegex.test(password.value)) {
+        showError(password, "Password must be at least 6 characters and include at least one number.");
+        isValid = false;
+      }
+
+      var storedEmail = localStorage.getItem("userEmail");
+      if (storedEmail === email.value.trim()) {
+        showError(email, "This email is already registered. Please login instead.");
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      localStorage.setItem("username", username.value.trim());
+      localStorage.setItem("userEmail", email.value.trim());
+      localStorage.setItem("userPassword", password.value);
+
+      
+
+      window.location.href = "./looggin.html";
+    });
+
+    function showError(input, message) {
+      input.classList.add('error');
+      const errorDiv = document.getElementById(input.id + "-error");
+      errorDiv.innerText = message;
+      errorDiv.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
