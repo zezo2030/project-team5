@@ -1,13 +1,10 @@
-
 var activeBtns = document.querySelectorAll('.products-categories-btn button');
 
 for (var i = 0; i < activeBtns.length; i++) {
     activeBtns[i].addEventListener('click', (e) => {
-
         for (var j = 0; j < activeBtns.length; j++) {
             activeBtns[j].classList.remove('products-active');
         }
-
         e.target.classList.add('products-active');
     });
 }
@@ -39,7 +36,7 @@ var firstInteraction = true;
 var sliderRight = document.getElementById("slider-right-btn");
 var sliderLeft = document.getElementById("slider-left-btn");
 
-sliderRight.addEventListener('click', function () {
+sliderRight.addEventListener('click', () => {
     if (firstInteraction) {
         firstInteraction = false;
         i = 1;
@@ -49,7 +46,7 @@ sliderRight.addEventListener('click', function () {
     }
 });
 
-sliderLeft.addEventListener('click', function () {
+sliderLeft.addEventListener('click', () => {
     if (firstInteraction) {
         firstInteraction = false;
         i = slides.length - 1;
@@ -90,7 +87,6 @@ function updateSlide() {
         btn.classList.add('animated', 'rotate-in-place', 'delay-3');
     }
 }
-
 function next() {
     i++;
     if (i >= slides.length) {
@@ -108,7 +104,7 @@ function prev() {
 }
 
 function autoShow() {
-    setInterval(function () {
+    setInterval(() => {
         next();
     }, 3000);
 }
@@ -116,13 +112,10 @@ function autoShow() {
 updateSlide();
 autoShow();
 
-
 var backToTopBtn = document.querySelector('.back-to-top');
-
-
 backToTopBtn.classList.add('hidden');
 
-window.addEventListener('scroll', function () {
+window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
         backToTopBtn.classList.remove('hidden');
     } else {
@@ -130,29 +123,25 @@ window.addEventListener('scroll', function () {
     }
 });
 
-
-backToTopBtn.addEventListener('click', function () {
+backToTopBtn.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
 });
 
-var productReq = new XMLHttpRequest()
 window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar')
-    const body = document.body
+    const navbar = document.querySelector('.navbar');
+    const body = document.body;
 
     if (window.scrollY >= 40) {
         navbar.classList.add('scrolled');
         body.classList.add('scrolled');
-    }
-    else {
+    } else {
         navbar.classList.remove('scrolled');
         body.classList.remove('scrolled');
     }
-})
-
+});
 
 var allProducts = [];
 
@@ -169,7 +158,6 @@ productReq.onreadystatechange = () => {
 };
 
 var buttons = document.querySelectorAll('.products-categories-btn button');
-
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', (e) => {
         var category = e.target.id.toLowerCase();
@@ -189,18 +177,18 @@ var showProducts = (category) => {
                 <div class="product-card">
                     <div class="product-img">
                         <img src="./assets/${allProducts[i].image}" alt="">
-                        <a href="#" id="${allProducts[i].id}">Quick View</a>
+                        <button data-product-id="${allProducts[i].id}" class="quick-view">Quick View</button>
                     </div>
                     <div class="product-details">
                         <div class="product-name">
-                                <span>${allProducts[i].title}</span>
-                                <div class="icon-heart-container">
-                                    <a>
-                                        <img class="icon-heart-1" src="./assets/icon-heart-01.png.webp" alt="">
-                                        <img class="icon-heart-2" src="./assets/icon-heart-02.png.webp" alt="">
-                                    </a>
-                                </div>
+                            <span>${allProducts[i].title}</span>
+                            <div class="icon-heart-container">
+                                <a>
+                                    <img class="icon-heart-1" src="./assets/icon-heart-01.png.webp" alt="">
+                                    <img class="icon-heart-2" src="./assets/icon-heart-02.png.webp" alt="">
+                                </a>
                             </div>
+                        </div>
                         <div class="product-price">$${allProducts[i].price}</div>
                     </div>
                 </div>
@@ -208,8 +196,6 @@ var showProducts = (category) => {
         }
     }
 };
-
-
 
 document.querySelector('.products-list').addEventListener('click', (e) => {
     if (e.target.classList.contains('quick-view')) {
