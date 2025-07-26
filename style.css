@@ -899,7 +899,7 @@
      width: 139px;
      height: 46px;
      line-height: 22px;
-     color: #333;
+     color: var(--text-primary);
      bottom: -50px;
      left: 50%;
      transform: translateX(-50%);
@@ -909,7 +909,7 @@
      padding: 0px 15px;
      cursor: pointer;
      transition: all 0.3s ease;
-     background-color: white;
+     background-color: var(--bg-card);
      border-radius: 20px;
      border: none;
      font-size: 15px;
@@ -1183,7 +1183,7 @@
 
  .product-name {
      font-weight: 500;
-     color: #333;
+     color: var(--text-primary);
  }
 
  .price,
