@@ -153,6 +153,7 @@ productReq.onreadystatechange = () => {
     if (productReq.readyState === 4 && productReq.status === 200) {
         var finalProducts = JSON.parse(productReq.responseText);
         allProducts = finalProducts.products;
+
         showProducts("all-products");
     }
 };
@@ -350,3 +351,66 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
         }
     }
 });
+
+
+var searchBox = document.querySelector('.search-box');
+var searchBtn = document.querySelector('#product-search-btn')
+
+searchBtn.addEventListener('click', () => {
+    searchBox.classList.toggle('hidden');
+    if (searchInput.id == "product-search") {
+        console.log('hi')
+        searchInput.addEventListener("keydown", (e) => {
+            if (e.key === 'Enter') {
+                searchProduct();
+            }
+        })
+    }
+})
+
+
+searchInput = document.getElementById('product-search');
+productsList = document.querySelector('.products-list');
+
+var renderProducts = (products) => {
+    productsList.innerHTML = ""
+    for (var i = 0; i < products.length; i++) {
+        var product = products[i];
+        productsList.innerHTML += `
+        <div class="product-card">     
+                    <div class="product-img">
+                        <img src="./assets/${product.image}" alt="">
+                        <button data-product-id="${product.id}" class="quick-view">Quick View</button>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-name">
+                            <span>${product.title}</span>
+                            <div class="icon-heart-container">
+                                <a>
+                                    <img class="icon-heart-1" src="./assets/icon-heart-01.png.webp" alt="">
+                                    <img class="icon-heart-2" src="./assets/icon-heart-02.png.webp" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-price">$${product.price}</div>
+                    </div>
+                </div> `
+    }
+}
+
+
+var searchProduct = () => {
+    var keyword = searchInput.value.toLowerCase();
+    var matched = [];
+    console.log(allProducts)
+
+    for (var i = 0; i < allProducts.length; i++) {
+        if (allProducts[i].title.toLowerCase().includes(keyword)) {
+            matched.push(allProducts[i]);
+        }
+
+    }
+    renderProducts(matched);
+
+}
+
