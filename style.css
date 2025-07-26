@@ -1127,6 +1127,7 @@
 
  /* Cart Items Section */
  .cart-items {
+    background-color: var(--bg-primary);
      overflow-x: auto;
      border: 1px solid #eeeeee;
  }
