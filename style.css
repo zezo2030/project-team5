@@ -61,7 +61,7 @@
      --text-secondary: #b8b8b8;
      --text-muted: #adaaaa;
      --text-light: #c8c3c3;
-     --text-dark: #f0f0f0;
+     --text-dark: #f0f0f0ad;
      --text-white: #5b5656;
      --text-brand: #4da6ff;
      --text-accent: #8889;
@@ -1467,7 +1467,7 @@
 
      font-size: 1.8em;
      /* padding-bottom: 10px; */
-     color: #333333;
+     color: var(--text-primary);
      margin: 0px;
      display: block;
      margin-block-start: 1em;
@@ -1508,7 +1508,7 @@
 
  #steve {
      font-style: normal;
-     color: #1a1a1a;
+     color: var(--text-dark);
      font-weight: 300;
      font-size: 0.9em;
      margin-top: 5px;
@@ -1578,7 +1578,7 @@
 
      font-size: 1.8em;
      /* padding-bottom: 10px; */
-     color: #333333;
+     color: var(--text-primary);
      margin: 0px;
      display: block;
      margin-block-start: 1em;
