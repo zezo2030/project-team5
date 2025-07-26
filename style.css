@@ -42,6 +42,9 @@
      --products-bg-btn-hover: #333;
      --products-color: #222;
      --products-bg-btn-load-more: rgb(230, 230, 230);
+
+     /* features colors */
+     --cart-table-text-color: #555;
  }
 
 
@@ -85,6 +88,9 @@
      --products-bg-btn-hover: rgb(235, 235, 235);
      --products-color: #9a9a9a;
      --products-bg-btn-load-more: #c1c1c1;
+
+     /* features colors */
+     --cart-table-text-color: #aaa9a9;
  }
 
 
@@ -1145,7 +1151,7 @@
      text-align: center;
      font-weight: 600;
      font-size: 14px;
-     color: #555;
+     color: var(--cart-table-text-color);
      font-weight: 800;
      letter-spacing: 0.5px;
      border-bottom: 2px solid #f7f7f7;
