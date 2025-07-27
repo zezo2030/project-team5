@@ -1510,12 +1510,12 @@
  }
 
  /* Product Details */
- .product-details {
+ .cart-item-content .product-details {
      flex: 1;
  }
 
  .product-name {
-     font-size: 18px;
+     font-size: 14px;
      font-weight: 600;
      color: var(--text-primary);
      margin: 0 0 8px 0;

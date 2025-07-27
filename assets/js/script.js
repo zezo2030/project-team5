@@ -378,14 +378,14 @@ var renderProducts = (products) => {
     for (var i = 0; i < products.length; i++) {
         var product = products[i];
         productsList.innerHTML += `
-        <div class="product-card">     
+        <div class="product-card">
                     <div class="product-img">
-                        <img src="./assets/imgs/${product.image}" alt="">
-                        <button data-product-id="${product.id}" class="quick-view">Quick View</button>
+                        <img src="./assets/${allProducts[i].image}" alt="">
+                        <button data-product-id="${allProducts[i].id}" class="quick-view">Quick View</button>
                     </div>
                     <div class="product-details">
                         <div class="product-name">
-                            <span>${product.title}</span>
+                            <span>${allProducts[i].title}</span>
                             <div class="icon-heart-container">
                                 <a>
                                     <img class="icon-heart-1" src="../imgs/icon-heart-01.png.webp" alt="">
@@ -393,7 +393,7 @@ var renderProducts = (products) => {
                                 </a>
                             </div>
                         </div>
-                        <div class="product-price">$${product.price}</div>
+                        <div class="product-price">$${allProducts[i].price}</div>
                     </div>
                 </div> `
     }
