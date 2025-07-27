@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                         <div class="product-details">
                             <h3 class="product-name">${item.product}</h3>
-                            <p class="product-description">${item.description} - Size: ${item.size}, Color: ${item.color}</p>
+                            <p class="product-description">Size:  ${item.size},Color: ${item.color}</p>
                             <div class="product-actions">
                                 <button class="remove-item">
                                     <i class="zmdi zmdi-delete"></i> Remove
