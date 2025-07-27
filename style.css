@@ -778,7 +778,7 @@
  }
 
  .product-name {
-     width: 79%;
+     width: 100%;
      display: flex;
      justify-content: space-between;
      padding-top: 14px;
@@ -1830,14 +1830,14 @@
      transform: translateY(0);
  }
 
- /* Cart Totals Section */
- .cart-totals {
-     border: 1px solid #f7f7f7;
-     padding: 25px;
-     border-radius: 6px;
-     height: fit-content;
-     ;
- }
+ /*!* Cart Totals Section *!*/
+ /*.cart-totals {*/
+ /*    border: 1px solid #f7f7f7;*/
+ /*    padding: 25px;*/
+ /*    border-radius: 6px;*/
+ /*    height: fit-content;*/
+ /*    ;*/
+ /*}*/
 
  .totals-title {
      font-size: 18px;
