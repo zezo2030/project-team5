@@ -2577,7 +2577,7 @@
  .search-icon {
      font-size: 16px;
      margin-right: 12px;
-     color: var(--bg-primary);
+     color: var(--search-box-color);
  }
 
  .search-box input {
