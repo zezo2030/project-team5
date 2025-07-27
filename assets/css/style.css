@@ -75,6 +75,10 @@
      --popup-cart-text: #ffffff;
      --popup-cart-plus-color:#4c4949;
      --popup-button-bg-color:#2d2d2d;
+
+     /* search box */
+     --search-box-color:#a09696;
+     --search-box-bg-color: white;
  }
 
 
@@ -155,6 +159,10 @@
      --popup-cart-text: #d5cbcb;
      --popup-cart-plus-color:#d5cbcb;
      --popup-button-bg-color:#121212c9;
+
+     /* search box */
+     --search-box-color:#121212c9;
+     --search-box-bg-color: #adaaaa;
  }
 
 
@@ -2554,10 +2562,10 @@
  .search-box {
      display: flex;
      align-items: center;
-     border: 1px solid var(--bg-primary);
+     border: 1px solid var(--search-box-color);
      padding: 15px 20px;
      border-radius: 3px;
-     background-color: var(--text-muted);
+     background-color: var(--search-box-bg-color);
      max-width: 100%;
      display: none;
  }
@@ -2577,7 +2585,7 @@
      outline: none;
      font-size: 16px;
      flex-grow: 1;
-     color: var(--bg-primary);
+     color: var(--search-box-color);
      background-color: transparent;
      width: 95%;
  }
