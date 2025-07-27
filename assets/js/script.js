@@ -332,15 +332,34 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                     return;
                 }
 
-                console.log('Added to cart:', {
+                // Cart functionality - save to localStorage
+                var cartItem = {
+                    id: product.id,
                     product: product.title,
                     size: selectedSize,
                     color: selectedColor,
                     quantity: quantity,
                     price: product.price,
-                    image: mainImage.src
-                });
+                    image: mainImage.src,
+                    description: product.description || 'Premium quality product'
+                };
 
+                var existingCart = JSON.parse(localStorage.getItem('cartItems')) || [];
+                var existingItemIndex = existingCart.findIndex(item => 
+                    item.id === cartItem.id && 
+                    item.size === cartItem.size && 
+                    item.color === cartItem.color
+                );
+
+                if (existingItemIndex > -1) {
+                    existingCart[existingItemIndex].quantity += cartItem.quantity;
+                } else {
+                    existingCart.push(cartItem);
+                }
+
+                localStorage.setItem('cartItems', JSON.stringify(existingCart));
+
+                console.log('Added to cart:', cartItem);
 
                 popup.remove();
                 overlay.remove();
@@ -388,8 +407,8 @@ var renderProducts = (products) => {
                             <span>${allProducts[i].title}</span>
                             <div class="icon-heart-container">
                                 <a>
-                                    <img class="icon-heart-1" src="../imgs/icon-heart-01.png.webp" alt="">
-                                    <img class="icon-heart-2" src="../imgs/icon-heart-02.png.webp" alt="">
+                                    <img class="icon-heart-1" src="./assets/imgs/icon-heart-01.png.webp" alt="">
+                                    <img class="icon-heart-2" src="./assets/imgs/icon-heart-02.png.webp" alt="">
                                 </a>
                             </div>
                         </div>
