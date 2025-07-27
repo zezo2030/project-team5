@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <!-- dark-mode -->
 <body class="login__body">
@@ -25,61 +25,6 @@
     </div>
   </div>
 
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      var errorMessages = document.querySelectorAll('.error-message');
-      for (let i = 0; i < errorMessages.length; i++) {
-        errorMessages[i].style.display = 'none';
-      }
-
-      var inputs = document.querySelectorAll('input');
-      for (let i = 0; i < inputs.length; i++) {
-        inputs[i].classList.remove('error');
-      }
-
-      var email = document.getElementById("loginEmail");
-      var password = document.getElementById("loginPassword");
-
-      let isValid = true;
-
-      
-      var  emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email.value.trim()) || !email.value.includes(".com")) {
-        showError(email, "Please enter a valid email address that includes '@' and '.com'");
-        isValid = false;
-      }
-
-      
-      var passwordRegex = /^(?=.*\d).{6,}$/;
-      if (!passwordRegex.test(password.value)) {
-        showError(password, "Password must be at least 6 characters and include at least one number.");
-        isValid = false;
-      }
-
-      if (!isValid) return;
-
-      
-      const storedEmail = localStorage.getItem("userEmail");
-      const storedPassword = localStorage.getItem("userPassword");
-
-      if (email.value.trim() === storedEmail && password.value === storedPassword) {
-        
-        // window.location.href = "index.html";
-
-        open("index.html","_self");
-      } else {
-        showError(password, "Incorrect email or password.");
-      }
-    });
-
-    function showError(input, message) {
-      input.classList.add('error');
-      var errorDiv = document.getElementById(input.id + "-error");
-      errorDiv.innerText = message;
-      errorDiv.style.display = 'block';
-    }
-  </script>
+  <script src="./assets/js/login_script.js"></script>
 </body>
 </html>

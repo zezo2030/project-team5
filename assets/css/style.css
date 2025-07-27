@@ -45,6 +45,8 @@
      --products-color: #222;
      --products-bg-btn-load-more: rgb(230, 230, 230);
 
+     --product-shadow: #50ffd2d2 2px 3px 10px;
+
      /* features colors */
      --cart-table-text-color: #555;
 
@@ -120,6 +122,8 @@
      --products-bg-btn-hover: rgb(235, 235, 235);
      --products-color: #9a9a9a;
      --products-bg-btn-load-more: #c1c1c1;
+     --product-shadow: #505050 2px 3px 10px;
+
 
      /* features colors */
      --cart-table-text-color: #aaa9a9;
@@ -175,6 +179,7 @@
      overflow-x: hidden;
      line-height: 1.8;
      background-color: var(--bg-primary);
+     transition: background-color 0.3s ease, color 0.3s ease;
  }
 
  @keyframes fadeDown {
@@ -376,7 +381,7 @@
      height: 84px;
      background-color: rgba(0, 0, 0, 0);
      color: rgb(102, 102, 102);
-     transition: height 0.4s ease;
+     transition: height 0.4s ease, background-color 0.3s ease, box-shadow 0.3s ease;
      position: absolute;
      top: 40;
      z-index: 1;
@@ -417,7 +422,7 @@
      /* here */
      color: var(--navbar-icons-color);
      font-size: 26px;
-     transition: 0.4s ease;
+     transition: 0.4s ease, color 0.3s ease;
  }
 
  .label1 {
@@ -445,6 +450,23 @@
 
  .nav-icons a:hover {
      color: var(--navbar-links-hover);
+ }
+
+ /* Material Icons styles for dark mode toggle */
+ .nav-icons .material-icons {
+     font-family: 'Material Icons';
+     font-weight: normal;
+     font-style: normal;
+     font-size: 26px;
+     line-height: 1;
+     letter-spacing: normal;
+     text-transform: none;
+     display: inline-block;
+     white-space: nowrap;
+     word-wrap: normal;
+     direction: ltr;
+     /* -webkit-font-feature-settings: 'liga'; */
+     /* -webkit-font-smoothing: antialiased; */
  }
 
  .nav-links {
@@ -495,7 +517,7 @@
      width: 100%;
      height: calc(100vh - 40px);
      color: rgb(102, 102, 102);
-     background-image: url('./assets/slide-01.jpg');
+     background-image: url('../imgs/slide-01.jpg');
      background-repeat: no-repeat;
      background-size: cover;
  }
@@ -512,7 +534,7 @@
      display: flex;
      flex-direction: column;
      justify-content: center;
-    padding: 100px 0 30px 0;
+     padding: 100px 0 30px 0;
      box-sizing: border-box;
      align-items: flex-start;
  }
@@ -636,15 +658,15 @@
  }
 
  #women-catg .catg-card {
-     background-image: url('./assets/banner-01.jpg.webp');
+     background-image: url('../imgs/banner-01.jpg.webp');
  }
 
  #men-catg .catg-card {
-     background-image: url('./assets/banner-02.jpg.webp');
+     background-image: url('../imgs/banner-02.jpg.webp');
  }
 
  #accessories-catg .catg-card {
-     background-image: url('./assets/banner-03.jpg.webp');
+     background-image: url('../imgs/banner-03.jpg.webp');
  }
 
  .products {
@@ -751,7 +773,7 @@
      justify-content: start;
      align-items: flex-start;
      border-radius: 10px;
-     box-shadow: #505050 2px 3px 10px;
+     box-shadow: var(--product-shadow);
 
  }
 
@@ -1395,7 +1417,7 @@
 
  /* ==================== CART PAGE STYLES ==================== */
 
- 
+
  /* ==================== CART PAGE STYLES ==================== */
 
  .cart-page .container {

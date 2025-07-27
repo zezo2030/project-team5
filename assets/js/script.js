@@ -11,19 +11,19 @@ for (var i = 0; i < activeBtns.length; i++) {
 
 var slides = [
     {
-        img: "./assets/slide-01.jpg",
+        img: "./assets/imgs/slide-01.jpg",
         h3: "Women Collection 2018",
         h2: "NEW SEASON",
         link: "SHOP NOW"
     },
     {
-        img: "./assets/slide-02.jpg",
+        img: "./assets/imgs/slide-02.jpg",
         h3: "MEN NEW-SEASON",
         h2: "JACKETS & COATS",
         link: "SHOP NOW"
     },
     {
-        img: "./assets/slide-03.jpg",
+        img: "./assets/imgs/slide-03.jpg",
         h3: "Men Collection 2018",
         h2: "NEW ARRIVALS",
         link: "SHOW NOW"
@@ -177,7 +177,7 @@ var showProducts = (category) => {
             container.innerHTML += `
                 <div class="product-card">
                     <div class="product-img">
-                        <img src="./assets/${allProducts[i].image}" alt="">
+                        <img src="./assets/imgs/${allProducts[i].image}" alt="">
                         <button data-product-id="${allProducts[i].id}" class="quick-view">Quick View</button>
                     </div>
                     <div class="product-details">
@@ -185,8 +185,8 @@ var showProducts = (category) => {
                             <span>${allProducts[i].title}</span>
                             <div class="icon-heart-container">
                                 <a>
-                                    <img class="icon-heart-1" src="./assets/icon-heart-01.png.webp" alt="">
-                                    <img class="icon-heart-2" src="./assets/icon-heart-02.png.webp" alt="">
+                                    <img class="icon-heart-1" src="../imgs/icon-heart-01.png.webp" alt="">
+                                    <img class="icon-heart-2" src="../imgs/icon-heart-02.png.webp" alt="">
                                 </a>
                             </div>
                         </div>
@@ -208,9 +208,9 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
             var colors = ['Red', 'Blue', 'Black', 'White', 'Green'];
 
             var thumbnailImages = [
-                './assets/' + product.image,
-                './assets/product-detail-01.jpg.webp',
-                './assets/product-detail-02.jpg.webp'
+                        './assets/imgs/' + product.image,
+        './assets/imgs/product-detail-01.jpg.webp',
+        './assets/imgs/product-detail-02.jpg.webp'
             ];
 
             var popup = document.createElement('div');
@@ -380,7 +380,7 @@ var renderProducts = (products) => {
         productsList.innerHTML += `
         <div class="product-card">     
                     <div class="product-img">
-                        <img src="./assets/${product.image}" alt="">
+                        <img src="./assets/imgs/${product.image}" alt="">
                         <button data-product-id="${product.id}" class="quick-view">Quick View</button>
                     </div>
                     <div class="product-details">
@@ -388,8 +388,8 @@ var renderProducts = (products) => {
                             <span>${product.title}</span>
                             <div class="icon-heart-container">
                                 <a>
-                                    <img class="icon-heart-1" src="./assets/icon-heart-01.png.webp" alt="">
-                                    <img class="icon-heart-2" src="./assets/icon-heart-02.png.webp" alt="">
+                                    <img class="icon-heart-1" src="../imgs/icon-heart-01.png.webp" alt="">
+                                    <img class="icon-heart-2" src="../imgs/icon-heart-02.png.webp" alt="">
                                 </a>
                             </div>
                         </div>
@@ -414,4 +414,58 @@ var searchProduct = () => {
     renderProducts(matched);
 
 }
+
+
+
+// Dark Mode Toggle Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const body = document.body;
+    
+    // Check if dark mode preference is saved in localStorage
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    
+    // Set initial state based on saved preference or current state
+    if (isDarkMode) {
+        body.classList.add('dark-mode');
+        updateDarkModeIcon(true);
+    } else {
+        body.classList.remove('dark-mode');
+        updateDarkModeIcon(false);
+    }
+    
+    // Add click event listener to the dark mode toggle
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Toggle dark mode class on body
+            body.classList.toggle('dark-mode');
+            
+            // Check if dark mode is now active
+            const isNowDarkMode = body.classList.contains('dark-mode');
+            
+            // Update icon
+            updateDarkModeIcon(isNowDarkMode);
+            
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', isNowDarkMode);
+        });
+    }
+    
+    // Function to update the dark mode icon
+    function updateDarkModeIcon(isDark) {
+        if (darkModeToggle) {
+            if (isDark) {
+                // Change to light mode icon for switching to light mode
+                darkModeToggle.textContent = 'light_mode';
+                darkModeToggle.title = 'Switch to light mode';
+            } else {
+                // Change to dark mode icon for switching to dark mode
+                darkModeToggle.textContent = 'dark_mode';
+                darkModeToggle.title = 'Switch to dark mode';
+            }
+        }
+    }
+});
 
