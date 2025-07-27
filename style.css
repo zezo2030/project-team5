@@ -1395,6 +1395,9 @@
 
  /* ==================== CART PAGE STYLES ==================== */
 
+ 
+ /* ==================== CART PAGE STYLES ==================== */
+
  .cart-page .container {
      max-width: 1200px;
      margin: 0 auto;
@@ -1405,19 +1408,7 @@
      display: grid;
      grid-template-columns: 2fr 1fr;
      gap: 40px;
-     background: white;
-     /*padding: 30px;*/
-     border-radius: 8px;
-     margin-top: 120px;
-     margin-bottom: 120px;
-     /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
- }
-
- /* Cart Items Section */
- .cart-items {
-    background-color: var(--bg-primary);
-     overflow-x: auto;
-     border: 1px solid #eeeeee;
+     margin-top: 40px;
  }
 
  /* Cart Header */
