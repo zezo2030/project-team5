@@ -37,6 +37,7 @@
      /* navbar icons color */
      --navbar-icons-color: rgb(51, 51, 51);
      --navbar-links-hover: #007bff;
+     --navbar-logo-color: ;
 
      /* products categories-btn  */
      --products-bg-btn: white;
@@ -62,14 +63,14 @@
 
      /* login, register colors */
      --box-colors: white;
-     --main-header-box-color:#11103d;
-     --input-bg-color:white;
-     --button-box-color:#6570c1;
-     --error-color:red;
+     --main-header-box-color: #11103d;
+     --input-bg-color: white;
+     --button-box-color: #6570c1;
+     --error-color: red;
 
      /* popup */
      --popup-bg-color: var(--bg-primary);
-     --popup-cart-text:var(--text-white);
+     --popup-cart-text: var(--text-white);
  }
 
 
@@ -108,6 +109,11 @@
      /* navbar icons color */
      --navbar-icons-color: rgb(178 172 172);
      --navbar-links-hover: #000000;
+     --navbar-logo-color: brightness(2) saturate(100%) invert(100%);
+
+     /* .logo-container>img {
+     filter: brightness(2) saturate(100%) invert(100%);
+ } */
 
      /* products categories-btn  */
      --products-bg-btn: transparent;
@@ -133,10 +139,10 @@
 
      /* login, register colors */
      --box-colors: #6767676b;
-     --main-header-box-color:#a9a9a9;
-     --input-bg-color:#d2d0d0;
-     --button-box-color:#2a2929ad;
-     --error-color:#ff4949;
+     --main-header-box-color: #a9a9a9;
+     --input-bg-color: #d2d0d0;
+     --button-box-color: #2a2929ad;
+     --error-color: #ff4949;
 
      /* popup */
      --popup-bg-color: #151515e0;
@@ -477,6 +483,11 @@
      display: flex;
      justify-content: flex-start;
      align-items: center;
+ }
+
+ /* fix color of logo in dark mode */
+ .logo-container>img {
+     filter: var(--navbar-logo-color);
  }
 
  .hero-section {
@@ -2394,7 +2405,7 @@
 
  .login-box h2 {
      text-align: center;
-     color:var(--main-header-box-color);
+     color: var(--main-header-box-color);
      margin-bottom: 10px;
  }
 
