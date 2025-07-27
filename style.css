@@ -2461,9 +2461,7 @@
      margin-bottom: 30px;
  }
 
- input[type="text"],
- input[type="email"],
- input[type="password"] {
+ .signup-box input {
      width: 100%;
      padding: 14px;
      margin: 8px 0 5px;
