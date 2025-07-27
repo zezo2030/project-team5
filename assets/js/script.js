@@ -489,7 +489,7 @@ var renderProducts = (products) => {
         productsList.innerHTML += `
         <div class="product-card">
                     <div class="product-img">
-                        <img src="./assets/${allProducts[i].image}" alt="">
+                        <img src="./assets/imgs/${allProducts[i].image}" alt="">
                         <button data-product-id="${allProducts[i].id}" class="quick-view">Quick View</button>
                     </div>
                     <div class="product-details">
