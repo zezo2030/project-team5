@@ -72,7 +72,9 @@
 
      /* popup */
      --popup-bg-color: var(--bg-primary);
-     --popup-cart-text: var(--text-white);
+     --popup-cart-text: #ffffff;
+     --popup-cart-plus-color:#4c4949;
+     --popup-button-bg-color:#2d2d2d;
  }
 
 
@@ -151,6 +153,8 @@
      /* popup */
      --popup-bg-color: #151515e0;
      --popup-cart-text: #d5cbcb;
+     --popup-cart-plus-color:#d5cbcb;
+     --popup-button-bg-color:#121212c9;
  }
 
 
@@ -1607,6 +1611,7 @@
  .quantity-btn:hover {
      background: var(--bg-button);
      transform: scale(1.1);
+     color: var(--bg-primary);
  }
 
  .quantity-input {
@@ -2296,7 +2301,7 @@
      display: flex;
      align-items: center;
      justify-content: center;
-     color: var(--popup-cart-text);
+     color: var(--popup-cart-plus-color);
  }
 
  .quantity-display {
@@ -2319,7 +2324,7 @@
  }
 
  .add-to-cart-btn:hover {
-     background-color: var(--bg-primary);
+     background-color: var(--popup-button-bg-color);
  }
 
  .overlay {
