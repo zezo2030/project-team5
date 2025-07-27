@@ -66,7 +66,9 @@
 
       if (email.value.trim() === storedEmail && password.value === storedPassword) {
         
-        window.location.href = "./landing-page.html";
+        // window.location.href = "index.html";
+
+        open("index.html","_self");
       } else {
         showError(password, "Incorrect email or password.");
       }
