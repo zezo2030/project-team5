@@ -1,4 +1,6 @@
 
+
+// scroll nav bar
 window.addEventListener('scroll', function () {
     const navbar = document.querySelector('.navbar')
     const body = document.body
@@ -13,6 +15,42 @@ window.addEventListener('scroll', function () {
     }
 })
 
+function updateCartBadge() {
+    var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    var totalItems = 0;
+    
+    for (var i = 0; i < cartItems.length; i++) {
+        totalItems += cartItems[i].quantity;
+    }
+    
+    var cartBadge = document.getElementById('cart-badge');
+    if (cartBadge) {
+        if (totalItems > 0) {
+            cartBadge.textContent = totalItems;
+            cartBadge.classList.remove('hidden');
+        } else {
+            cartBadge.classList.add('hidden');
+        }
+    }
+}
+
+var cartIcon = document.querySelector('#cart-icon');
+var searchIcon = document.querySelector('#search-icon');
+
+if (cartIcon) {
+    cartIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'cart1.html';
+    });
+}
+
+if (searchIcon) {
+    searchIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'index.html#products';
+    });
+}
+
 // Cart functionality
 document.addEventListener('DOMContentLoaded', function () {
     
@@ -23,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         if (cartItems.length === 0) {
             cartContainer.innerHTML = '<div class="empty-cart"><p>Your cart is empty</p></div>';
+            localStorage.removeItem('couponDiscount');
             updateItemCount();
             updateCartSummary();
             return;
@@ -74,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         updateItemCount();
         updateCartSummary();
+        updateCartBadge();
     }
 
     // Event delegation for dynamically created elements
@@ -97,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateItemTotal(cartItem);
             updateCartToLocalStorage(cartItem, currentValue);
             updateCartSummary();
+            updateCartBadge();
         }
 
         if (e.target.classList.contains('remove-item') || e.target.closest('.remove-item')) {
@@ -107,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 cartItem.remove();
                 updateCartSummary();
                 updateItemCount();
+                updateCartBadge();
             }, 300);
         }
 
@@ -126,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateItemTotal(cartItem);
             updateCartToLocalStorage(cartItem, parseInt(e.target.value));
             updateCartSummary();
+            updateCartBadge();
         }
     });
 
@@ -182,10 +225,57 @@ document.addEventListener('DOMContentLoaded', function () {
             subtotal += parseFloat(totalPrice.replace('$', ''));
         });
 
+        // If cart is empty, clear coupon discount
+        if (subtotal === 0) {
+            localStorage.removeItem('couponDiscount');
+        }
+
+        // Check if coupon discount is applied and recalculate if needed
+        var couponDiscount = localStorage.getItem('couponDiscount') || '0';
+        var discountAmount = parseFloat(couponDiscount);
+        
+        // If there's a discount but cart changed, recalculate the discount
+        if (discountAmount > 0 && subtotal > 0) {
+            // Recalculate 20% discount on current subtotal
+            discountAmount = subtotal * 0.20;
+            localStorage.setItem('couponDiscount', discountAmount.toString());
+        }
+        
+        var finalTotal = subtotal - discountAmount;
+
         var subtotalElements = document.querySelectorAll('.totals-row .value');
         if (subtotalElements.length >= 2) {
             subtotalElements[0].textContent = '$' + subtotal.toFixed(2);
-            subtotalElements[1].textContent = '$' + subtotal.toFixed(2);
+            subtotalElements[1].textContent = '$' + finalTotal.toFixed(2);
+        }
+
+        // Update discount display if exists
+        updateDiscountDisplay(discountAmount);
+    }
+
+    function updateDiscountDisplay(discountAmount) {
+        var existingDiscountRow = document.querySelector('.discount-row');
+        
+        if (discountAmount > 0) {
+            if (!existingDiscountRow) {
+                // Create discount row if it doesn't exist
+                var totalRow = document.querySelector('.total-row');
+                var discountRow = document.createElement('div');
+                discountRow.className = 'totals-row discount-row';
+                discountRow.innerHTML = `
+                    <span class="label">Coupon Discount:</span>
+                    <span class="value discount-value">-$${discountAmount.toFixed(2)}</span>
+                `;
+                totalRow.parentNode.insertBefore(discountRow, totalRow);
+            } else {
+                // Update existing discount row
+                existingDiscountRow.querySelector('.discount-value').textContent = '-$' + discountAmount.toFixed(2);
+            }
+        } else {
+            // Remove discount row if no discount
+            if (existingDiscountRow) {
+                existingDiscountRow.remove();
+            }
         }
     }
 
@@ -232,6 +322,11 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
         }
         
+        // Apply coupon discount if exists
+        var couponDiscount = localStorage.getItem('couponDiscount') || '0';
+        var discountAmount = parseFloat(couponDiscount);
+        var finalTotal = totalAmount - discountAmount;
+        
         checkoutPopup.innerHTML = `
             <button class="close-btn">×</button>
             <div class="popup-content checkout-content">
@@ -244,8 +339,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 <div class="checkout-summary">
                     <div class="checkout-total-row">
-                        <span class="checkout-total-label">Total Amount:</span>
+                        <span class="checkout-total-label">Subtotal:</span>
                         <span class="checkout-total-amount">$${totalAmount.toFixed(2)}</span>
+                    </div>
+                    ${discountAmount > 0 ? `
+                    <div class="checkout-discount-row">
+                        <span class="checkout-discount-label">Coupon Discount:</span>
+                        <span class="checkout-discount-amount">-$${discountAmount.toFixed(2)}</span>
+                    </div>` : ''}
+                    <div class="checkout-total-row final-total">
+                        <span class="checkout-total-label">Total Amount:</span>
+                        <span class="checkout-total-amount">$${finalTotal.toFixed(2)}</span>
                     </div>
                 </div>
                 <div class="checkout-actions">
@@ -280,20 +384,65 @@ document.addEventListener('DOMContentLoaded', function () {
         // Confirm order handler - clear cart and show success
         checkoutPopup.querySelector('.confirm-order-btn').addEventListener('click', function() {
             localStorage.removeItem('cartItems');
+            localStorage.removeItem('couponDiscount');
             checkoutPopup.remove();
             overlay.remove();
+            
+            // Clear all totals
+            var subtotalElements = document.querySelectorAll('.totals-row .value');
+            if (subtotalElements.length >= 2) {
+                subtotalElements[0].textContent = '$0.00';
+                subtotalElements[1].textContent = '$0.00';
+            }
+            
+            // Remove any discount row
+            var existingDiscountRow = document.querySelector('.discount-row');
+            if (existingDiscountRow) {
+                existingDiscountRow.remove();
+            }
             
             // Show success message and refresh cart
             alert('Order confirmed! Thank you for your purchase.');
             renderCartItems();
+            updateCartBadge();
         });
 
         checkoutPopup.style.display = 'block';
         overlay.style.display = 'block';
     });
 
+    // Coupon functionality
+    document.querySelector('.btn-apply-coupon').addEventListener('click', function() {
+        var couponInput = document.querySelector('.coupon-input');
+        var couponCode = couponInput.value.trim().toLowerCase();
+        
+        if (couponCode === 'omnia_iti') {
+            // Calculate 20% discount on current subtotal
+            var cartItems = document.querySelectorAll('.cart-item-card');
+            var subtotal = 0;
+
+            cartItems.forEach(function(item) {
+                var totalPrice = item.querySelector('.total-price').textContent;
+                subtotal += parseFloat(totalPrice.replace('$', ''));
+            });
+
+            var discountAmount = subtotal * 0.20; // 20% discount
+            localStorage.setItem('couponDiscount', discountAmount.toString());
+            
+            alert('Coupon "omnia_iti" applied successfully! You saved $' + discountAmount.toFixed(2));
+            updateCartSummary();
+        } else if (couponCode === '') {
+            // Clear discount if no coupon code
+            localStorage.removeItem('couponDiscount');
+            updateCartSummary();
+        } else {
+            alert('Invalid coupon code. Please try again.');
+        }
+    });
+
     // Initialize cart on page load
     renderCartItems();
+    updateCartBadge();
 });
 
 

@@ -12,10 +12,48 @@ window.addEventListener('scroll', function () {
     }
 })
 
+function updateCartBadge() {
+    var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    var totalItems = 0;
+    
+    for (var i = 0; i < cartItems.length; i++) {
+        totalItems += cartItems[i].quantity;
+    }
+    
+    var cartBadge = document.getElementById('cart-badge');
+    if (cartBadge) {
+        if (totalItems > 0) {
+            cartBadge.textContent = totalItems;
+            cartBadge.classList.remove('hidden');
+        } else {
+            cartBadge.classList.add('hidden');
+        }
+    }
+}
+
+var cartIcon = document.querySelector('#cart-icon');
+var searchIcon = document.querySelector('#search-icon');
+
+if (cartIcon) {
+    cartIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'cart1.html';
+    });
+}
+
+if (searchIcon) {
+    searchIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'index.html#products';
+    });
+}
+
 // Dark Mode Toggle Functionality
 document.addEventListener('DOMContentLoaded', function() {
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     const body = document.body;
+    
+    updateCartBadge();
 
     // Check if dark mode preference is saved in localStorage
     const isDarkMode = localStorage.getItem('darkMode') === 'true';

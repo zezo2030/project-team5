@@ -461,8 +461,39 @@
  }
 
  .nav-icons a:hover {
-     color: var(--navbar-links-hover);
- }
+    color: var(--navbar-links-hover);
+}
+
+.cart-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #f74877;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    box-sizing: border-box;
+    line-height: 1;
+    z-index: 10;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cart-badge.hidden {
+    display: none;
+}
 
  /* Material Icons styles for dark mode toggle */
  .nav-icons .material-icons {
