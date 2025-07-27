@@ -185,8 +185,8 @@ var showProducts = (category) => {
                             <span>${allProducts[i].title}</span>
                             <div class="icon-heart-container">
                                 <a>
-                                    <img class="icon-heart-1" src="../imgs/icon-heart-01.png.webp" alt="">
-                                    <img class="icon-heart-2" src="../imgs/icon-heart-02.png.webp" alt="">
+                                    <img class="icon-heart-1" src="./assets/imgs/icon-heart-01.png.webp" alt="">
+                                    <img class="icon-heart-2" src="./assets/imgs/icon-heart-02.png.webp" alt="">
                                 </a>
                             </div>
                         </div>
