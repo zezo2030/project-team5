@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Section</title>
+    <meta name="description" content="Contact Coza Store - Get in touch with us for any questions or support." />
+    <link rel="icon" type="image/png" href="./assets/imgs/logo-01.png.webp" />
+    <title>Contact Us - ZORA</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" />
@@ -15,6 +17,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <style>
+        .brand-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 32px;
+            color: #222;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        body.dark-mode .brand-text {
+            color: #fff;
+        }
+
+        .nav-auth-btn {
+            font-size: 20px;
+            color: var(--navbar-icons-color);
+            transition: color 0.3s;
+        }
+
+        .nav-auth-btn:hover {
+            color: var(--navbar-links-hover);
+        }
+    </style>
 </head>
 
 <body class="contact-page">
@@ -33,16 +59,15 @@
     <div class="navbar">
         <div class="navbar-container">
             <div class="logo-container">
-                <img src="./assets/imgs/logo-01.png.webp" alt="logo" class="logo" />
+                <a href="index.html" class="brand-text">ZORA</a>
             </div>
             <div class="nav-links">
                 <ul class="nav-list">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="index.html#products">Shop</a></li>
-                    <li><a href="cart1.html" class="label1" data-label1="hot">Features</a></li>
+                    <li><a href="cart1.html" class="label1" data-label1="hot">Cart</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html" class="active">Contact</a></li>
-                    <li><a href="login.html">Register</a></li>
                 </ul>
             </div>
             <div class="nav-icons">
@@ -52,10 +77,17 @@
                     <span class="cart-badge hidden" id="cart-badge">0</span>
                 </div>
                 <a title="favourites" href="#" id="fav-icon" class="zmdi zmdi-favorite-outline"></a>
+                <a title="Join / Sign In" href="login.html" class="material-icons nav-auth-btn">person</a>
                 <a title="dark-mode" href="#" id="dark-mode-toggle" class="material-icons">dark_mode</a>
+                <div class="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </div>
+    <div class="nav-overlay"></div>
     <div class="cover">
         <h1>Contact</h1>
     </div>
@@ -165,6 +197,7 @@
     <div class="back-to-top">
         <span class=" zmdi zmdi-chevron-up"></span>
     </div>
+    <script src="assets/js/common.js"></script>
     <script src="assets/js/contact_script.js"></script>
     <script>
         window.addEventListener('scroll', () => {

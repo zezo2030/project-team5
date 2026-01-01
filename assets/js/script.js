@@ -208,9 +208,9 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
             var colors = ['Red', 'Blue', 'Black', 'White', 'Green'];
 
             var thumbnailImages = [
-                        './assets/imgs/' + product.image,
-        './assets/imgs/product-detail-01.jpg.webp',
-        './assets/imgs/product-detail-02.jpg.webp'
+                './assets/imgs/' + product.image,
+                './assets/imgs/product-detail-01.jpg.webp',
+                './assets/imgs/product-detail-02.jpg.webp'
             ];
 
             var popup = document.createElement('div');
@@ -306,7 +306,7 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
             var quantity = 1;
 
             minusBtn.addEventListener('click', () => {
-                if (quantity > 1) { // Minimum 1 item
+                if (quantity > 1) {
                     quantity--;
                     quantityDisplay.textContent = quantity;
                 }
@@ -323,16 +323,16 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                 var selectedColor = popup.querySelector('#color-select').value;
 
                 if (!selectedSize) {
-                    alert('Please select a size');
+                    Toast.warning('Please select a size');
                     return;
                 }
 
                 if (!selectedColor) {
-                    alert('Please select a color');
+                    Toast.warning('Please select a color');
                     return;
                 }
 
-                // Cart functionality - save to localStorage
+
                 var cartItem = {
                     id: product.id,
                     product: product.title,
@@ -345,9 +345,9 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
                 };
 
                 var existingCart = JSON.parse(localStorage.getItem('cartItems')) || [];
-                var existingItemIndex = existingCart.findIndex(item => 
-                    item.id === cartItem.id && 
-                    item.size === cartItem.size && 
+                var existingItemIndex = existingCart.findIndex(item =>
+                    item.id === cartItem.id &&
+                    item.size === cartItem.size &&
                     item.color === cartItem.color
                 );
 
@@ -359,8 +359,8 @@ document.querySelector('.products-list').addEventListener('click', (e) => {
 
                 localStorage.setItem('cartItems', JSON.stringify(existingCart));
 
-                console.log('Added to cart:', cartItem);
-                
+                Toast.success(product.title + ' added to cart! 🛒');
+
                 updateCartBadge();
 
                 popup.remove();
@@ -394,7 +394,7 @@ searchBtn.addEventListener('click', () => {
 searchIcon.addEventListener('click', (e) => {
     e.preventDefault();
     var productsSection = document.querySelector('#products');
-    
+
     if (productsSection) {
         productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(() => {
@@ -417,7 +417,7 @@ searchIcon.addEventListener('click', (e) => {
             }, 100);
         }
     }
-    
+
     if (searchInput && searchInput.id == "product-search") {
         searchInput.addEventListener("keydown", (e) => {
             if (e.key === 'Enter') {
@@ -489,12 +489,12 @@ var renderProducts = (products) => {
         productsList.innerHTML += `
         <div class="product-card">
                     <div class="product-img">
-                        <img src="./assets/${allProducts[i].image}" alt="">
-                        <button data-product-id="${allProducts[i].id}" class="quick-view">Quick View</button>
+                        <img src="./assets/imgs/${product.image}" alt="${product.title}">
+                        <button data-product-id="${product.id}" class="quick-view">Quick View</button>
                     </div>
                     <div class="product-details">
                         <div class="product-name">
-                            <span>${allProducts[i].title}</span>
+                            <span>${product.title}</span>
                             <div class="icon-heart-container">
                                 <a>
                                     <img class="icon-heart-1" src="./assets/imgs/icon-heart-01.png.webp" alt="">
@@ -502,7 +502,7 @@ var renderProducts = (products) => {
                                 </a>
                             </div>
                         </div>
-                        <div class="product-price">$${allProducts[i].price}</div>
+                        <div class="product-price">$${product.price}</div>
                     </div>
                 </div> `
     }
@@ -512,90 +512,16 @@ var renderProducts = (products) => {
 var searchProduct = () => {
     var keyword = searchInput.value.toLowerCase();
     var matched = [];
-    console.log(allProducts)
 
     for (var i = 0; i < allProducts.length; i++) {
         if (allProducts[i].title.toLowerCase().includes(keyword)) {
             matched.push(allProducts[i]);
         }
-
     }
+
+    if (matched.length === 0) {
+        Toast.info('No products found for "' + keyword + '"');
+    }
+
     renderProducts(matched);
-
 }
-
-
-
-function updateCartBadge() {
-    var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    var totalItems = 0;
-    
-    for (var i = 0; i < cartItems.length; i++) {
-        totalItems += cartItems[i].quantity;
-    }
-    
-    var cartBadge = document.getElementById('cart-badge');
-    if (cartBadge) {
-        if (totalItems > 0) {
-            cartBadge.textContent = totalItems;
-            cartBadge.classList.remove('hidden');
-        } else {
-            cartBadge.classList.add('hidden');
-        }
-    }
-}
-
-// Dark Mode Toggle Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const body = document.body;
-    
-    updateCartBadge();
-    
-    // Check if dark mode preference is saved in localStorage
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-    
-    // Set initial state based on saved preference or current state
-    if (isDarkMode) {
-        body.classList.add('dark-mode');
-        updateDarkModeIcon(true);
-    } else {
-        body.classList.remove('dark-mode');
-        updateDarkModeIcon(false);
-    }
-    
-    // Add click event listener to the dark mode toggle
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Toggle dark mode class on body
-            body.classList.toggle('dark-mode');
-            
-            // Check if dark mode is now active
-            const isNowDarkMode = body.classList.contains('dark-mode');
-            
-            // Update icon
-            updateDarkModeIcon(isNowDarkMode);
-            
-            // Save preference to localStorage
-            localStorage.setItem('darkMode', isNowDarkMode);
-        });
-    }
-    
-    // Function to update the dark mode icon
-    function updateDarkModeIcon(isDark) {
-        if (darkModeToggle) {
-            if (isDark) {
-                // Change to light mode icon for switching to light mode
-                darkModeToggle.textContent = 'light_mode';
-                darkModeToggle.title = 'Switch to light mode';
-            } else {
-                // Change to dark mode icon for switching to dark mode
-                darkModeToggle.textContent = 'dark_mode';
-                darkModeToggle.title = 'Switch to dark mode';
-            }
-        }
-    }
-});
-

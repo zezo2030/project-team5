@@ -1,66 +1,22 @@
+/**
+ * Cart Page Script
+ * Uses common.js for shared functionality
+ */
 
-
-// scroll nav bar
-window.addEventListener('scroll', function () {
-    const navbar = document.querySelector('.navbar')
-    const body = document.body
-
-    if (window.scrollY >= 40) {
-        navbar.classList.add('scrolled');
-        body.classList.add('scrolled');
-    }
-    else {
-        navbar.classList.remove('scrolled');
-        body.classList.remove('scrolled');
-    }
-})
-
-function updateCartBadge() {
-    var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    var totalItems = 0;
-    
-    for (var i = 0; i < cartItems.length; i++) {
-        totalItems += cartItems[i].quantity;
-    }
-    
-    var cartBadge = document.getElementById('cart-badge');
-    if (cartBadge) {
-        if (totalItems > 0) {
-            cartBadge.textContent = totalItems;
-            cartBadge.classList.remove('hidden');
-        } else {
-            cartBadge.classList.add('hidden');
-        }
-    }
-}
-
-var cartIcon = document.querySelector('#cart-icon');
-var searchIcon = document.querySelector('#search-icon');
-
-if (cartIcon) {
-    cartIcon.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.href = 'cart1.html';
-    });
-}
-
-if (searchIcon) {
-    searchIcon.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.href = 'index.html#products';
-    });
-}
-
-// Cart functionality
 document.addEventListener('DOMContentLoaded', function () {
-    
-    // Dynamic cart rendering from localStorage
+
     function renderCartItems() {
         var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         var cartContainer = document.querySelector('.cart-items-container');
-        
+
         if (cartItems.length === 0) {
-            cartContainer.innerHTML = '<div class="empty-cart"><p>Your cart is empty</p></div>';
+            cartContainer.innerHTML = `
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <p>Your cart is empty</p>
+                    <a href="index.html#products" class="btn-shop-now">Start Shopping</a>
+                </div>
+            `;
             localStorage.removeItem('couponDiscount');
             updateItemCount();
             updateCartSummary();
@@ -79,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                         <div class="product-details">
                             <h3 class="product-name">${item.product}</h3>
-                            <p class="product-description">Size:  ${item.size},Color: ${item.color}</p>
+                            <p class="product-description">Size: ${item.size} | Color: ${item.color}</p>
                             <div class="product-actions">
                                 <button class="remove-item">
                                     <i class="zmdi zmdi-delete"></i> Remove
@@ -116,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
         updateCartBadge();
     }
 
-    // Event delegation for dynamically created elements
-    document.querySelector('.cart-items-container').addEventListener('click', function(e) {
+
+    document.querySelector('.cart-items-container').addEventListener('click', function (e) {
         if (e.target.classList.contains('quantity-btn') || e.target.closest('.quantity-btn')) {
             var button = e.target.classList.contains('quantity-btn') ? e.target : e.target.closest('.quantity-btn');
             var isPlus = button.classList.contains('plus');
@@ -142,24 +98,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (e.target.classList.contains('remove-item') || e.target.closest('.remove-item')) {
             var cartItem = e.target.closest('.cart-item-card');
+            var productName = cartItem.querySelector('.product-name').textContent;
+
             cartItem.style.animation = 'fadeOut 0.3s ease';
-            setTimeout(function() {
+            setTimeout(function () {
                 removeItemFromLocalStorage(cartItem);
                 cartItem.remove();
                 updateCartSummary();
                 updateItemCount();
                 updateCartBadge();
+                Toast.info(productName + ' removed from cart');
+
+                // Check if cart is empty
+                var remainingItems = document.querySelectorAll('.cart-item-card');
+                if (remainingItems.length === 0) {
+                    renderCartItems();
+                }
             }, 300);
         }
 
         if (e.target.classList.contains('save-later') || e.target.closest('.save-later')) {
             var productName = e.target.closest('.cart-item-card').querySelector('.product-name').textContent;
-            alert(productName + ' has been saved for later!');
+            Toast.success(productName + ' saved for later!');
         }
     });
 
-    // Handle quantity input changes
-    document.querySelector('.cart-items-container').addEventListener('change', function(e) {
+
+    document.querySelector('.cart-items-container').addEventListener('change', function (e) {
         if (e.target.classList.contains('quantity-input')) {
             if (parseInt(e.target.value) < 1) {
                 e.target.value = 1;
@@ -178,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var itemColor = cartItem.getAttribute('data-color');
         var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-        // Ensure proper type comparison - use loose equality for ID
+
         for (var i = 0; i < cartItems.length; i++) {
             if (cartItems[i].id == itemId && cartItems[i].size === itemSize && cartItems[i].color === itemColor) {
                 cartItems[i].quantity = newQuantity;
@@ -195,13 +160,12 @@ document.addEventListener('DOMContentLoaded', function () {
         var itemColor = cartItem.getAttribute('data-color');
         var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-        // Ensure proper type comparison - convert itemId to match stored format
-        cartItems = cartItems.filter(function(item) {
+
+        cartItems = cartItems.filter(function (item) {
             return !(item.id == itemId && item.size === itemSize && item.color === itemColor);
         });
 
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        console.log('Item removed from localStorage. Remaining items:', cartItems.length);
     }
 
     function updateItemTotal(cartItem) {
@@ -220,27 +184,26 @@ document.addEventListener('DOMContentLoaded', function () {
         var cartItems = document.querySelectorAll('.cart-item-card');
         var subtotal = 0;
 
-        cartItems.forEach(function(item) {
+        cartItems.forEach(function (item) {
             var totalPrice = item.querySelector('.total-price').textContent;
             subtotal += parseFloat(totalPrice.replace('$', ''));
         });
 
-        // If cart is empty, clear coupon discount
+
         if (subtotal === 0) {
             localStorage.removeItem('couponDiscount');
         }
 
-        // Check if coupon discount is applied and recalculate if needed
+
         var couponDiscount = localStorage.getItem('couponDiscount') || '0';
         var discountAmount = parseFloat(couponDiscount);
-        
-        // If there's a discount but cart changed, recalculate the discount
+
+
         if (discountAmount > 0 && subtotal > 0) {
-            // Recalculate 20% discount on current subtotal
             discountAmount = subtotal * 0.20;
             localStorage.setItem('couponDiscount', discountAmount.toString());
         }
-        
+
         var finalTotal = subtotal - discountAmount;
 
         var subtotalElements = document.querySelectorAll('.totals-row .value');
@@ -249,16 +212,14 @@ document.addEventListener('DOMContentLoaded', function () {
             subtotalElements[1].textContent = '$' + finalTotal.toFixed(2);
         }
 
-        // Update discount display if exists
         updateDiscountDisplay(discountAmount);
     }
 
     function updateDiscountDisplay(discountAmount) {
         var existingDiscountRow = document.querySelector('.discount-row');
-        
+
         if (discountAmount > 0) {
             if (!existingDiscountRow) {
-                // Create discount row if it doesn't exist
                 var totalRow = document.querySelector('.total-row');
                 var discountRow = document.createElement('div');
                 discountRow.className = 'totals-row discount-row';
@@ -268,11 +229,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
                 totalRow.parentNode.insertBefore(discountRow, totalRow);
             } else {
-                // Update existing discount row
                 existingDiscountRow.querySelector('.discount-value').textContent = '-$' + discountAmount.toFixed(2);
             }
         } else {
-            // Remove discount row if no discount
             if (existingDiscountRow) {
                 existingDiscountRow.remove();
             }
@@ -283,29 +242,31 @@ document.addEventListener('DOMContentLoaded', function () {
         var cartItems = document.querySelectorAll('.cart-item-card');
         var itemCountElement = document.querySelector('.item-count');
         var count = cartItems.length;
-        itemCountElement.textContent = count + (count === 1 ? ' item' : ' items');
+        if (itemCountElement) {
+            itemCountElement.textContent = count + (count === 1 ? ' item' : ' items');
+        }
     }
 
-    // Checkout functionality - show popup and clear cart
-    document.querySelector('.btn-checkout').addEventListener('click', function() {
+
+    document.querySelector('.btn-checkout').addEventListener('click', function () {
         var cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        
+
         if (cartItems.length === 0) {
-            alert('Your cart is empty!');
+            Toast.warning('Your cart is empty!');
             return;
         }
 
         var checkoutPopup = document.createElement('div');
         checkoutPopup.className = 'popup checkout-popup';
-        
+
         var itemsHTML = '';
         var totalAmount = 0;
-        
+
         for (var i = 0; i < cartItems.length; i++) {
             var item = cartItems[i];
             var itemTotal = item.price * item.quantity;
             totalAmount += itemTotal;
-            
+
             itemsHTML += `
                 <div class="checkout-item-card">
                     <div class="checkout-item-content">
@@ -321,12 +282,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
             `;
         }
-        
-        // Apply coupon discount if exists
+
+
         var couponDiscount = localStorage.getItem('couponDiscount') || '0';
         var discountAmount = parseFloat(couponDiscount);
         var finalTotal = totalAmount - discountAmount;
-        
+
         checkoutPopup.innerHTML = `
             <button class="close-btn">×</button>
             <div class="popup-content checkout-content">
@@ -365,44 +326,65 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(overlay);
         document.body.appendChild(checkoutPopup);
 
-        // Close popup handlers
-        checkoutPopup.querySelector('.close-btn').addEventListener('click', function() {
+        checkoutPopup.querySelector('.close-btn').addEventListener('click', function () {
             checkoutPopup.remove();
             overlay.remove();
         });
 
-        checkoutPopup.querySelector('.cancel-order-btn').addEventListener('click', function() {
+        checkoutPopup.querySelector('.cancel-order-btn').addEventListener('click', function () {
             checkoutPopup.remove();
             overlay.remove();
         });
 
-        overlay.addEventListener('click', function() {
+        overlay.addEventListener('click', function () {
             checkoutPopup.remove();
             overlay.remove();
         });
 
-        // Confirm order handler - clear cart and show success
-        checkoutPopup.querySelector('.confirm-order-btn').addEventListener('click', function() {
+
+        checkoutPopup.querySelector('.confirm-order-btn').addEventListener('click', function () {
+
+            // SAVE ORDER LOGIC
+            const userEmail = localStorage.getItem('userEmail');
+            if (userEmail) {
+                const order = {
+                    id: Date.now().toString().slice(-6), // Simple Short ID
+                    date: new Date().toISOString(),
+                    userEmail: userEmail,
+                    items: cartItems,
+                    total: finalTotal,
+                    status: 'Processing'
+                };
+
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+            }
+
             localStorage.removeItem('cartItems');
             localStorage.removeItem('couponDiscount');
             checkoutPopup.remove();
             overlay.remove();
-            
-            // Clear all totals
+
+
             var subtotalElements = document.querySelectorAll('.totals-row .value');
             if (subtotalElements.length >= 2) {
                 subtotalElements[0].textContent = '$0.00';
                 subtotalElements[1].textContent = '$0.00';
             }
-            
-            // Remove any discount row
+
+
             var existingDiscountRow = document.querySelector('.discount-row');
             if (existingDiscountRow) {
                 existingDiscountRow.remove();
             }
-            
-            // Show success message and refresh cart
-            alert('Order confirmed! Thank you for your purchase.');
+
+            if (userEmail) {
+                Toast.success('Order confirmed! View it in "My Orders". 🎉');
+            } else {
+                Toast.success('Order confirmed! Thank you for your purchase. 🎉');
+            }
+
             renderCartItems();
             updateCartBadge();
         });
@@ -411,91 +393,53 @@ document.addEventListener('DOMContentLoaded', function () {
         overlay.style.display = 'block';
     });
 
-    // Coupon functionality
-    document.querySelector('.btn-apply-coupon').addEventListener('click', function() {
+
+    document.querySelector('.btn-apply-coupon').addEventListener('click', function () {
         var couponInput = document.querySelector('.coupon-input');
         var couponCode = couponInput.value.trim().toLowerCase();
-        
+
         if (couponCode === 'omnia_iti') {
-            // Calculate 20% discount on current subtotal
+
             var cartItems = document.querySelectorAll('.cart-item-card');
             var subtotal = 0;
 
-            cartItems.forEach(function(item) {
+            cartItems.forEach(function (item) {
                 var totalPrice = item.querySelector('.total-price').textContent;
                 subtotal += parseFloat(totalPrice.replace('$', ''));
             });
 
-            var discountAmount = subtotal * 0.20; // 20% discount
+            if (subtotal === 0) {
+                Toast.warning('Add items to your cart first!');
+                return;
+            }
+
+            var discountAmount = subtotal * 0.20;
             localStorage.setItem('couponDiscount', discountAmount.toString());
-            
-            alert('Coupon "omnia_iti" applied successfully! You saved $' + discountAmount.toFixed(2));
+
+            Toast.success('Coupon applied! You saved $' + discountAmount.toFixed(2) + ' 🎉');
             updateCartSummary();
+            couponInput.value = '';
         } else if (couponCode === '') {
-            // Clear discount if no coupon code
             localStorage.removeItem('couponDiscount');
             updateCartSummary();
+            Toast.info('Coupon removed');
         } else {
-            alert('Invalid coupon code. Please try again.');
+            Toast.error('Invalid coupon code. Try "omnia_iti" for 20% off!');
         }
     });
 
-    // Initialize cart on page load
+
     renderCartItems();
     updateCartBadge();
 });
 
 
-
-
-// Dark Mode Toggle Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const body = document.body;
-
-    // Check if dark mode preference is saved in localStorage
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-
-    // Set initial state based on saved preference or current state
-    if (isDarkMode) {
-        body.classList.add('dark-mode');
-        updateDarkModeIcon(true);
-    } else {
-        body.classList.remove('dark-mode');
-        updateDarkModeIcon(false);
+// Add fadeOut animation keyframes dynamically
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeOut {
+        from { opacity: 1; transform: translateX(0); }
+        to { opacity: 0; transform: translateX(-20px); }
     }
-
-    // Add click event listener to the dark mode toggle
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            // Toggle dark mode class on body
-            body.classList.toggle('dark-mode');
-
-            // Check if dark mode is now active
-            const isNowDarkMode = body.classList.contains('dark-mode');
-
-            // Update icon
-            updateDarkModeIcon(isNowDarkMode);
-
-            // Save preference to localStorage
-            localStorage.setItem('darkMode', isNowDarkMode);
-        });
-    }
-
-    // Function to update the dark mode icon
-    function updateDarkModeIcon(isDark) {
-        if (darkModeToggle) {
-            if (isDark) {
-                // Change to light mode icon for switching to light mode
-                darkModeToggle.textContent = 'light_mode';
-                darkModeToggle.title = 'Switch to light mode';
-            } else {
-                // Change to dark mode icon for switching to dark mode
-                darkModeToggle.textContent = 'dark_mode';
-                darkModeToggle.title = 'Switch to dark mode';
-            }
-        }
-    }
-});
+`;
+document.head.appendChild(style);

@@ -1,33 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your Coza Store account" />
+  <link rel="icon" type="image/png" href="./assets/imgs/logo-01.png.webp" />
+  <title>Sign Up - ZORA</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .brand-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      color: #111;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      text-decoration: none;
+    }
+
+    body.dark-mode .brand-text {
+      color: #fff;
+    }
+  </style>
 </head>
 
-<body class="login__body dark-mode">
+<body class="login__body">
+  <div class="auth-dark-toggle">
+    <a href="#" id="dark-mode-toggle" class="material-icons" title="Toggle dark mode">dark_mode</a>
+  </div>
+
   <div class="signup-box">
-    <h2>Sign Up</h2>
-    <p>Create your account to get full access</p>
+    <a href="index.html" class="login-logo-link" style="text-decoration:none;">
+      <span class="brand-text">ZORA</span>
+    </a>
+    <h2>Create Account</h2>
+    <p>Join us and start shopping today</p>
     <form id="registerForm" novalidate>
-      <input type="text" id="username" placeholder="Enter username" required>
+      <div class="input-group">
+        <span class="input-icon material-icons">person</span>
+        <input type="text" id="username" placeholder="Username" required>
+      </div>
       <div class="error-message" id="username-error"></div>
 
-      <input type="email" id="email" placeholder="Enter email address" required>
+      <div class="input-group">
+        <span class="input-icon material-icons">email</span>
+        <input type="email" id="email" placeholder="Email address" required>
+      </div>
       <div class="error-message" id="email-error"></div>
 
-      <input type="password" id="password" placeholder="Enter Password" required>
+      <div class="input-group">
+        <span class="input-icon material-icons">lock</span>
+        <input type="password" id="password" placeholder="Password" required>
+      </div>
       <div class="error-message" id="password-error"></div>
 
-      <button type="submit">Sign Up</button>
+      <div class="input-group">
+        <span class="input-icon material-icons">lock_outline</span>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      </div>
+      <div class="error-message" id="confirmPassword-error"></div>
+
+      <button type="submit">
+        <span class="material-icons"
+          style="font-size: 18px; vertical-align: middle; margin-right: 8px;">person_add</span>
+        Create Account
+      </button>
     </form>
     <div class="login">
-      Already have an account? <a href="login.html">Login here</a>
+      Already have an account? <a href="login.html">Sign in</a>
+    </div>
+    <div class="back-link">
+      <a href="index.html">
+        <span class="material-icons" style="font-size: 16px; vertical-align: middle;">arrow_back</span>
+        Back to Shop
+      </a>
     </div>
   </div>
 
-  <script src="./assets/js/register_script.js"> </script>
+  <script src="./assets/js/common.js"></script>
+  <script src="./assets/js/register_script.js"></script>
 </body>
+
 </html>

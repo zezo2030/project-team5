@@ -1,4 +1,9 @@
-document.getElementById("loginForm").addEventListener("submit", function(event) {
+/**
+ * Login Page Script
+ * Uses common.js for shared functionality
+ */
+
+document.getElementById("loginForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
     var errorMessages = document.querySelectorAll('.error-message');
@@ -16,33 +21,35 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
 
     let isValid = true;
 
-
-    var  emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.value.trim()) || !email.value.includes(".com")) {
-        showError(email, "Please enter a valid email address that includes '@' and '.com'");
+    // Validate email
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value.trim())) {
+        showError(email, "Please enter a valid email address");
         isValid = false;
     }
 
-
-    var passwordRegex = /^(?=.*\d).{6,}$/;
-    if (!passwordRegex.test(password.value)) {
-        showError(password, "Password must be at least 6 characters and include at least one number.");
+    // Validate password
+    if (password.value.length < 6) {
+        showError(password, "Password must be at least 6 characters");
         isValid = false;
     }
 
     if (!isValid) return;
 
-
+    // Check stored credentials
     const storedEmail = localStorage.getItem("userEmail");
     const storedPassword = localStorage.getItem("userPassword");
 
     if (email.value.trim() === storedEmail && password.value === storedPassword) {
-
-        // window.location.href = "index.html";
-
-        open("index.html","_self");
+        Toast.success('Login successful! Welcome back 👋');
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
+    } else if (!storedEmail) {
+        Toast.error('No account found. Please sign up first.');
     } else {
-        showError(password, "Incorrect email or password.");
+        showError(password, "Incorrect email or password");
+        Toast.error('Login failed. Please check your credentials.');
     }
 });
 
@@ -52,56 +59,3 @@ function showError(input, message) {
     errorDiv.innerText = message;
     errorDiv.style.display = 'block';
 }
-
-
-// Dark Mode Toggle Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const body = document.body;
-
-    // Check if dark mode preference is saved in localStorage
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-
-    // Set initial state based on saved preference or current state
-    if (isDarkMode) {
-        body.classList.add('dark-mode');
-        updateDarkModeIcon(true);
-    } else {
-        body.classList.remove('dark-mode');
-        updateDarkModeIcon(false);
-    }
-
-    // Add click event listener to the dark mode toggle
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            // Toggle dark mode class on body
-            body.classList.toggle('dark-mode');
-
-            // Check if dark mode is now active
-            const isNowDarkMode = body.classList.contains('dark-mode');
-
-            // Update icon
-            updateDarkModeIcon(isNowDarkMode);
-
-            // Save preference to localStorage
-            localStorage.setItem('darkMode', isNowDarkMode);
-        });
-    }
-
-    // Function to update the dark mode icon
-    function updateDarkModeIcon(isDark) {
-        if (darkModeToggle) {
-            if (isDark) {
-                // Change to light mode icon for switching to light mode
-                darkModeToggle.textContent = 'light_mode';
-                darkModeToggle.title = 'Switch to light mode';
-            } else {
-                // Change to dark mode icon for switching to dark mode
-                darkModeToggle.textContent = 'dark_mode';
-                darkModeToggle.title = 'Switch to dark mode';
-            }
-        }
-    }
-});
